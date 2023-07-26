@@ -1,10 +1,10 @@
-import datetime
 from math import ceil
 from string import Template
 
-from datetime_now import dt_now
-from text.language.main import Text_main
 from text.fuction.function import TextFunc
+from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
+
 Txt = Text_main()
 func = TextFunc()
 nds = 1 + Txt.commission.nds / 100
@@ -17,7 +17,7 @@ class FormWithdrawGroup:
         self.__text = text
         self.__amount = amount
         self.__data = data
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
 
     async def menu_accept_user(self):
         text = Template("$accept\n\n"

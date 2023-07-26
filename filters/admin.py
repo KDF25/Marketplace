@@ -6,9 +6,10 @@ import typing
 
 class IsAdmin(BoundFilter):
     async def check(self, message: typing.Union[types.Message, types.CallbackQuery]):
-        status = (await bot.get_chat_member(user_id=message.from_user.id, chat_id=chat_id)).status
-        if status in ["creator", "administrator"]:
-            return True
+        print(message.data)
+        # status = (await bot.get_chat_member(user_id=message.from_user.id, chat_id=chat_id)).status
+        # if status in ["creator", "administrator"]:
+        return True
 
 
 class IsAdminReverse(BoundFilter):

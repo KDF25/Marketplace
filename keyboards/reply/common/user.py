@@ -1,6 +1,7 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.types.web_app_info import WebAppInfo
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -8,7 +9,7 @@ Txt = Text_main()
 class ReplyUser:
     def __init__(self, language: str):
         self.__language = language
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
         self.__main_menu = KeyboardButton(text=self.__Lang.buttons.common.menu)
 
     async def start(self):
@@ -56,8 +57,7 @@ class ReplyUser:
 
     async def menu_advertiser(self, login: str, password: [int, str]):
         markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-        b1 = KeyboardButton(text=self.__Lang.menu.advertiser.formOrder,
-                            web_app=WebAppInfo(url=f'https://laappetit.uz?login={login}&password={password}&new_order=true'))
+        b1 = KeyboardButton(text=self.__Lang.menu.advertiser.formOrder, web_app=WebAppInfo(url=await self._web_app(login, password)))
         b2 = KeyboardButton(text=self.__Lang.menu.advertiser.activeOrder)
         b3 = KeyboardButton(text=self.__Lang.menu.advertiser.basket)
         b4 = KeyboardButton(text=self.__Lang.menu.advertiser.account)
@@ -67,6 +67,9 @@ class ReplyUser:
         b8 = KeyboardButton(text=self.__Lang.menu.advertiser.change)
         markup.add(b1).add(b2, b3, b4, b5, b6, b7).add(b8)
         return markup
+
+    async def _web_app(self, login: str, password: str, new_order: bool = True) -> str:
+        return f'https://laappetit.uz?login={login}&password={password}&new_order={new_order}&language={self.__language}'
 
     async def information(self):
         markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
@@ -85,7 +88,7 @@ class ReplyUser:
     async def setting(self):
         markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         b1 = KeyboardButton(text=Txt.settings.rus)
-        b2 = KeyboardButton(text=Txt.settings.ozb)
-        b3 = KeyboardButton(text=Txt.settings.eng)
-        markup.add(b1, b2, b3).add(self.__main_menu)
+        b2 = KeyboardButton(text=Txt.settings.uzb)
+        # b3 = KeyboardButton(text=Txt.settings.eng)
+        markup.add(b1, b2).add(self.__main_menu)
         return markup

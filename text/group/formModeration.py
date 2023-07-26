@@ -5,8 +5,10 @@ from typing import Union
 from aiogram.utils.markdown import hlink
 
 from datetime_now import dt_now
-from text.language.main import Text_main
 from text.fuction.function import TextFunc
+from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
+
 Txt = Text_main()
 func = TextFunc()
 
@@ -18,7 +20,7 @@ class FormModerationGroup:
         self.__url = url
         self.__name = name
         self.__data = data
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
 
     async def menu_accept_user(self):
         text = Template("<b>$accept</b>\n\n"

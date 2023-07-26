@@ -4,11 +4,151 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d858cd9-24da-46e1-8d11-c1aef16b0fb6" name="Changes" comment="" />
+    <list default="true" id="5d858cd9-24da-46e1-8d11-c1aef16b0fb6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/text/language/uzb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot_tg.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot_tg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ex.py" beforeDir="false" afterPath="$PROJECT_DIR$/ex.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filters/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/filters/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filters/form_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/filters/form_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filters/personal_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/filters/personal_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filters/platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/filters/platform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filters/registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/filters/registration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filters/wallet.py" beforeDir="false" afterPath="$PROJECT_DIR$/filters/wallet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/admin/mailing.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/admin/mailing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/admin/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/admin/menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/admin/statistics.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/admin/statistics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/all_orders/all_orders.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/all_orders/all_orders.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/basket.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/basket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/form_order/form_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/form_order/form_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/form_order/payment_common.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/form_order/payment_common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/form_order/payment_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/form_order/payment_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/form_order/payment_individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/form_order/payment_individual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/form_order/payment_self_employed_account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/form_order/payment_self_employed_account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/form_order/send_blogger.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/form_order/send_blogger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/form_order/wallet.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/form_order/wallet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/personal_data/add_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/personal_data/add_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/personal_data/add_individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/personal_data/add_individual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/personal_data/add_self_employed_account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/personal_data/add_self_employed_account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/personal_data/add_self_employed_card.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/personal_data/add_self_employed_card.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/personal_data/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/personal_data/entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/personal_data/individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/personal_data/individual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/personal_data/personal_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/personal_data/personal_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/personal_data/self_employed_account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/personal_data/self_employed_account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/personal_data/self_employed_card.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/personal_data/self_employed_card.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/post_moderation.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/post_moderation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/registration/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/registration/entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/registration/exist_account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/registration/exist_account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/registration/individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/registration/individual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/registration/registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/registration/registration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/registration/self_employed_account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/registration/self_employed_account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/registration/self_employed_card.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/registration/self_employed_card.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/wallet/history.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/wallet/history.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/wallet/payment_common.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/wallet/payment_common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/wallet/payment_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/wallet/payment_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/wallet/payment_individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/wallet/payment_individual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/wallet/payment_self_employed.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/wallet/payment_self_employed.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/wallet/wallet.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/wallet/wallet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/wallet/withdraw_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/wallet/withdraw_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/wallet/withdraw_individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/wallet/withdraw_individual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/wallet/withdraw_self_employed_account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/wallet/withdraw_self_employed_account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/wallet/withdraw_self_employed_card.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/wallet/withdraw_self_employed_card.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/all_orders/all_orders.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/all_orders/all_orders.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/all_orders/cancel.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/all_orders/cancel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/new_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/new_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/personal_data/add_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/personal_data/add_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/personal_data/add_individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/personal_data/add_individual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/personal_data/add_self_employed_account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/personal_data/add_self_employed_account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/personal_data/add_self_employed_card.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/personal_data/add_self_employed_card.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/personal_data/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/personal_data/entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/personal_data/individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/personal_data/individual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/personal_data/personal_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/personal_data/personal_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/personal_data/self_employed_account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/personal_data/self_employed_account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/personal_data/self_employed_card.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/personal_data/self_employed_card.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/platform/add_platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/platform/add_platform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/platform/all_platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/platform/all_platform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/platform/calendar.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/platform/calendar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/platform/change_platforn.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/platform/change_platforn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/platform/delete_platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/platform/delete_platform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/registration/entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/registration/entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/registration/exist_account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/registration/exist_account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/registration/individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/registration/individual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/registration/platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/registration/platform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/registration/registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/registration/registration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/registration/self_employed_account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/registration/self_employed_account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/registration/self_employed_card.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/registration/self_employed_card.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/wallet/history.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/wallet/history.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/wallet/payment_common.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/wallet/payment_common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/wallet/payment_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/wallet/payment_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/wallet/payment_individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/wallet/payment_individual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/wallet/payment_self_employed.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/wallet/payment_self_employed.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/wallet/wallet.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/wallet/wallet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/wallet/withdraw_entity.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/wallet/withdraw_entity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/wallet/withdraw_individual.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/wallet/withdraw_individual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/wallet/withdraw_self_employed_account.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/wallet/withdraw_self_employed_account.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/wallet/withdraw_self_employed_card.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/wallet/withdraw_self_employed_card.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/common/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/common/menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/common/new_message.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/common/new_message.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/common/post_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/common/post_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/group/ban_platfrom.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/group/ban_platfrom.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/group/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/group/menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/group/moderation.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/group/moderation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/group/on_ban_platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/group/on_ban_platform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/group/on_moderation.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/group/on_moderation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/group/on_withdraw.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/group/on_withdraw.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/group/post_moderation.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/group/post_moderation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/group/post_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/group/post_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/group/withdraw.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/group/withdraw.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/inline/advertiser/all_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/advertiser/all_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/inline/advertiser/form_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/advertiser/form_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/inline/blogger/all_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/blogger/all_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/inline/blogger/newPost.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/blogger/newPost.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/inline/blogger/platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/blogger/platform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/inline/common/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/common/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/inline/common/personal_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/common/personal_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/inline/common/post_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/common/post_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/inline/common/registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/common/registration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/inline/common/wallet.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/common/wallet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/inline/group/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/group/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/reply/advertiser/advertiser.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/reply/advertiser/advertiser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/reply/common/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/reply/common/common.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/reply/common/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/reply/common/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/reply/group/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/reply/group/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/advertiser/formAllOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/advertiser/formAllOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/advertiser/formMenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/advertiser/formMenu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/advertiser/formOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/advertiser/formOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/advertiser/formPostModeration.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/advertiser/formPostModeration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/blogger/formAllOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/blogger/formAllOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/blogger/formMenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/blogger/formMenu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/blogger/formNewOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/blogger/formNewOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/blogger/formPlatform.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/blogger/formPlatform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/common/formCommon.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/common/formCommon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/common/formEntityData.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/common/formEntityData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/common/formExist.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/common/formExist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/common/formIndividualData.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/common/formIndividualData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/common/formPersonalData.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/common/formPersonalData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/common/formPost.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/common/formPost.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/common/formRegistration.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/common/formRegistration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/common/formSelfEmployedAccountData.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/common/formSelfEmployedAccountData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/common/formSelfEmployedCardData.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/common/formSelfEmployedCardData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/common/formWallet.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/common/formWallet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/group/formBanPlatform.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/group/formBanPlatform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/group/formModeration.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/group/formModeration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/group/formWithdraw.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/group/formWithdraw.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/language/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/language/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/language/ozb.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/language/ru.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/language/ru.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2QxwTTWCx70NoqTNLc3ZaUL5il2" />
   <component name="ProjectViewState">
@@ -18,10 +158,11 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.bot_tg">
     <configuration name="bot_tg" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="MARKETPLACE" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -43,9 +184,53 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="config" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="MARKETPLACE" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/config.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="user" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="MARKETPLACE" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/keyboards/reply/common" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keyboards/reply/common/user.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.bot_tg" />
+        <item itemvalue="Python.user" />
+        <item itemvalue="Python.config" />
       </list>
     </recent_temporary>
   </component>
@@ -59,5 +244,36 @@
       <updated>1686308548148</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/text/language/uzb.py</url>
+          <line>59</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/text/language/uzb.py</url>
+          <line>628</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/text/language/uzb.py</url>
+          <line>621</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/text/language/uzb.py</url>
+          <line>610</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/text/language/uzb.py</url>
+          <line>72</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

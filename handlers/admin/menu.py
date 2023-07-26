@@ -13,6 +13,7 @@ from handlers.admin.statistics import Statistics
 from keyboards.inline.admin.admin import InlineAdmin
 from keyboards.reply.common.user import ReplyUser
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 reply = ReplyUser(language='rus')

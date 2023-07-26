@@ -1,28 +1,29 @@
 from contextlib import suppress
-from typing import Union
-from config import bot, moderation_chat_id
+
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
+from config import bot
 from handlers.advertiser.menu import MenuAdvertiser
 from handlers.advertiser.registration.exist_account import ExistAdvertiser
 from handlers.advertiser.registration.registration import RegistrationAdvertiser
 from handlers.blogger.menu import MenuBlogger
-from keyboards.inline.common.common import Start
-from looping import pg, fastapi
 from handlers.blogger.registration.exist_account import ExistBlogger
 from handlers.blogger.registration.registration import RegistrationBlogger
+from keyboards.inline.common.common import Start
+from keyboards.inline.common.registration import InlineRegistration
+from keyboards.reply.common.common import ReplyStart
+from keyboards.reply.common.user import ReplyUser
+from looping import pg, fastapi
 from model.user import User
 from text.common.formCommon import FormCommon
 from text.language.main import Text_main
-from keyboards.reply.common.common import ReplyStart
-from keyboards.reply.common.user import ReplyUser
-from keyboards.inline.common.registration import InlineRegistration
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
-import aiohttp
+
 
 class MenuCommon(StatesGroup):
     start = State()
@@ -31,6 +32,7 @@ class MenuCommon(StatesGroup):
         await call.answer()
 
     async def command_start(self, message: types.Message, state: FSMContext):
+        print(1)
         async with state.proxy() as data:
             await self._get_token(data=data)
             data['lang'] = await pg.select_language(user_id=message.from_user.id)
@@ -108,7 +110,7 @@ class MenuCommon(StatesGroup):
     @staticmethod
     async def _prepare(data, message):
         data['lang'] = await pg.select_language(user_id=message.from_user.id)
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         return Lang
 
     async def _greeting_blogger(self, message, data):
@@ -132,7 +134,7 @@ class MenuCommon(StatesGroup):
     async def menu_choose_language(self, call: types.callback_query, state: FSMContext):
         async with state.proxy() as data:
             data['lang'] = call.data
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             reply = ReplyStart(language=data.get('lang'))
         with suppress(MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted):
             await bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.message_id)
@@ -144,45 +146,45 @@ class MenuCommon(StatesGroup):
     @staticmethod
     async def menu_setting(message: types.Message, state: FSMContext):
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             reply = ReplyStart(language=data.get('lang'))
             await bot.send_message(chat_id=message.from_user.id, text=Lang.start.language,
                                    reply_markup=await reply.setting())
 
     async def menu_change_language(self, message: types.Message, state: FSMContext):
-        await self._change_language(message)
         async with state.proxy() as data:
-            data['lang'] = await pg.select_language(user_id=message.from_user.id)
-            Lang = Txt.language[data.get('lang')]
+            data['lang'] = await self._change_language(message)
+            Lang: Model = Txt.language[data.get('lang')]
             reply = ReplyStart(language=data.get('lang'))
             await bot.send_message(chat_id=message.from_user.id, text=Lang.menu.blogger.menu,
                                    reply_markup=await reply.start())
 
-    async def _change_language(self, message):
+    @staticmethod
+    async def _change_language(message):
         new_language = message.text
         user_id = message.from_user.id
-        language = "rus"
-        if new_language == "🇷🇺 Ru":
-            language = 'rus'
-        elif new_language == "🇺🇸 Eng":
-            language = 'rus'
-        elif new_language == "🇺🇿 Uz":
-            language = 'rus'
+        if new_language == Txt.settings.rus:
+            language = Txt.rus_var
+        elif new_language == Txt.settings.uzb:
+            language = Txt.uzb_var
+        else:
+            return Txt.uzb_var
         await pg.update_language(language=language, user_id=user_id)
+        return language
 
     async def main_menu(self, message: types.Message, state: FSMContext):
         await self.start.set()
         async with state.proxy() as data:
             await state.set_data(data={"lang": data.get('lang')})
-            Lang = Txt.language[data.get('lang')]
-            reply = ReplyStart()
+            Lang: Model = Txt.language[data.get('lang')]
+            reply = ReplyStart(language=data.get('lang'))
             await bot.send_message(chat_id=message.from_user.id, text=Lang.menu.blogger.menu,
                                    reply_markup=await reply.start())
 
     async def registration_blogger(self, message: types.Message, state: FSMContext):
         await state.set_state("RegistrationBlogger:regBlogger_level1")
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlineRegistration(language=data.get('lang'))
             reply = ReplyUser(language=data.get('lang'))
             form = FormCommon(language=data.get("lang"))
@@ -195,7 +197,7 @@ class MenuCommon(StatesGroup):
     async def registration_advertiser(self, message: types.Message, state: FSMContext):
         await state.set_state("RegistrationAdvertiser:regAdvertiser_level0")
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             reply = ReplyUser(language=data.get('lang'))
             message1 = await bot.send_message(chat_id=message.from_user.id, text=Lang.registration.advertiser.about,
                                    reply_markup=await reply.menu_start())
@@ -207,7 +209,7 @@ class MenuCommon(StatesGroup):
         dp.register_message_handler(self.command_start, commands="start",                                               state='*')
 
         dp.register_callback_query_handler(self.void, text='void',                                                      state="*")
-        dp.register_callback_query_handler(self.menu_choose_language, text=['rus', 'ozb', 'eng'],                       state=self.start)
+        dp.register_callback_query_handler(self.menu_choose_language, text=Txt.language.keys(),                         state=self.start)
 
         dp.register_message_handler(self.main_menu, text=Txt.menu.menu,                                                 state=[self.start,
                                                                                                                                *ExistBlogger.states_names,

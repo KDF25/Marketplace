@@ -3,18 +3,17 @@ from contextlib import suppress
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, \
-    MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
 from config import bot
 from handlers.advertiser.form_order.send_blogger import SendBlogger
-
 from keyboards.inline.common.wallet import InlineWalletUser
 from keyboards.reply.common.user import ReplyUser
 from looping import fastapi
 from text.common.formWallet import FormWallet
-from text.language.main import Text_main
 from text.fuction.function import TextFunc
+from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -58,7 +57,7 @@ class FormOrderWallet(StatesGroup):
     async def _prepare(data):
         reply = ReplyUser(language=data.get('lang'))
         inline = InlineWalletUser(language=data.get('lang'))
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         form = FormWallet(language=data.get("lang"),
                           cash=int(data.get("formOrder").get("basket").get("total_cost") - data.get("formOrder").get("wallet")),
                           payment=int(data.get("formOrder").get("wallet") - data.get("formOrder").get("basket").get("total_cost")))
@@ -76,7 +75,7 @@ class FormOrderWallet(StatesGroup):
 
     @staticmethod
     async def _success_payment(call, data, reply):
-        Lang = Txt.language[data.get("lang")]
+        Lang: Model = Txt.language[data.get("lang")]
         await call.answer(show_alert=True, text=Lang.alert.advertiser.startCampaign)
         with suppress(MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted):
             await bot.delete_message(chat_id=call.from_user.id, message_id=data.get('message_id'))

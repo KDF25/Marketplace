@@ -4,7 +4,6 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 
 from config import bot
 from handlers.blogger.all_orders.all_orders import AllOrderBlogger
-
 from handlers.blogger.personal_data.add_entity import AddDataEntityBlogger
 from handlers.blogger.personal_data.add_individual import AddDataIndividualBlogger
 from handlers.blogger.personal_data.add_self_employed_account import AddDataSelfEmployedAccountBlogger
@@ -14,19 +13,16 @@ from handlers.blogger.personal_data.individual import PersonalDataIndividualBlog
 from handlers.blogger.personal_data.personal_data import PersonalDataBlogger
 from handlers.blogger.personal_data.self_employed_account import PersonalDataSelfEmployedAccountBlogger
 from handlers.blogger.personal_data.self_employed_card import PersonalDataSelfEmployedCardBlogger
-
 from handlers.blogger.platform.add_platform import AddPlatformBlogger
 from handlers.blogger.platform.all_platform import PlatformBlogger
 from handlers.blogger.platform.calendar import CalendarBlogger
 from handlers.blogger.platform.change_platforn import ChangePlatformBlogger
 from handlers.blogger.platform.delete_platform import DeletePlatformBlogger
-
 from handlers.blogger.registration.entity import FirstEntityBlogger
 from handlers.blogger.registration.individual import FirstIndividualBlogger
 from handlers.blogger.registration.platform import FirstPlatformBlogger
 from handlers.blogger.registration.self_employed_account import FirstSelfEmployedAccountBlogger
 from handlers.blogger.registration.self_employed_card import FirstSelfEmployedCardBlogger
-
 from handlers.blogger.wallet.history import HistoryWalletBlogger
 from handlers.blogger.wallet.payment_common import PaymentCommonBlogger
 from handlers.blogger.wallet.payment_entity import PaymentEntityBlogger
@@ -37,12 +33,12 @@ from handlers.blogger.wallet.withdraw_entity import WithdrawEntityBlogger
 from handlers.blogger.wallet.withdraw_individual import WithdrawIndividualBlogger
 from handlers.blogger.wallet.withdraw_self_employed_account import WithdrawSelfEmployedAccountBlogger
 from handlers.blogger.wallet.withdraw_self_employed_card import WithdrawSelfEmployedCardBlogger
-
 from keyboards.reply.common.user import ReplyUser
 from looping import pg, fastapi
 from model.user import User
 from text.blogger.formMenu import FormMenuBlogger
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -57,7 +53,7 @@ class MenuBlogger(StatesGroup):
         print(await state.get_state())
         await self.menuBlogger_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             reply = ReplyUser(language=data.get('lang'))
             await self._get_token(data=data)
             new_data = User(lang=data.get("lang"), email=data.get("email"), password=data.get("password"), token=data.get("token"))
@@ -74,7 +70,7 @@ class MenuBlogger(StatesGroup):
     async def menu_change_role(self, message: types.Message, state: FSMContext):
         await self.menuBlogger_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             reply = ReplyUser(language=data.get('lang'))
             await bot.send_message(chat_id=message.from_user.id, text=Lang.menu.advertiser.change,
                                    reply_markup=await reply.menu_blogger())
@@ -84,7 +80,7 @@ class MenuBlogger(StatesGroup):
     async def menu_setting(self, message: types.Message, state: FSMContext):
         await self.menuBlogger_level2.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             reply = ReplyUser(language=data.get('lang'))
             await bot.send_message(chat_id=message.from_user.id, text=Lang.start.language,
                                    reply_markup=await reply.setting())
@@ -92,10 +88,8 @@ class MenuBlogger(StatesGroup):
     async def menu_change_language(self, message: types.Message, state: FSMContext):
         await self.menuBlogger_level1.set()
         async with state.proxy() as data:
-            # data['lang'] = self.__new_language
-            await self._change_language(message)
-            data['lang'] = "rus"
-            Lang = Txt.language[data.get('lang')]
+            data['lang'] = await self._change_language(message)
+            Lang: Model = Txt.language[data.get('lang')]
             reply = ReplyUser(language=data.get('lang'))
             await bot.send_message(chat_id=message.from_user.id, text=Lang.menu.blogger.menu,
                                    reply_markup=await reply.menu_blogger())
@@ -103,7 +97,7 @@ class MenuBlogger(StatesGroup):
     async def menu_information(self, message: types.Message, state: FSMContext):
         await self.menuBlogger_level2.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             reply = ReplyUser(language=data.get('lang'))
             await bot.send_message(chat_id=message.from_user.id, text=Lang.menu.blogger.information,
                                    reply_markup=await reply.information())
@@ -112,16 +106,14 @@ class MenuBlogger(StatesGroup):
     async def _change_language(message):
         new_language = message.text
         user_id = message.from_user.id
-        language = 'rus'
-        if new_language == "🇷🇺 Ru":
-            language = 'rus'
-        elif new_language == "🇺🇸 Eng":
-            # self.__new_language = 'eng'
-            language = 'rus'
-        elif new_language == "🇺🇿 Uz":
-            # self.__new_language = 'ozb'
-            language = 'rus'
+        if new_language == Txt.settings.rus:
+            language = Txt.rus_var
+        elif new_language == Txt.settings.uzb:
+            language = Txt.uzb_var
+        else:
+            return Txt.uzb_var
         await pg.update_language(language=language, user_id=user_id)
+        return language
 
     @staticmethod
     async def menu_about_us(message: types.Message, state: FSMContext):
@@ -140,7 +132,7 @@ class MenuBlogger(StatesGroup):
     @staticmethod
     async def menu_feedback(message: types.Message, state: FSMContext):
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             await bot.send_message(chat_id=message.from_user.id, text=Lang.feedback.feedback)
 
 

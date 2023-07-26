@@ -1,12 +1,10 @@
-import datetime
-from math import ceil
 from string import Template
-from typing import Union
 
 from aiogram.utils.markdown import hlink
 
 from text.fuction.function import TextFunc
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -16,7 +14,7 @@ class FormNewOrder:
 
     def __init__(self, language: str, data: dict = None):
         self.__data = data
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
 
     async def _unpack_channel(self):
         self.__platform = self.__data.get("area_name")

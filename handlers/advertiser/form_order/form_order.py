@@ -1,16 +1,15 @@
-import json
 from contextlib import suppress
 from datetime import datetime, timedelta
 from typing import Union
-from datetime_now import dt_now
+
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, \
-    MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
 from config import bot
-from filters.form_order import IsSearch, IsPostLength, IsCommentLength, IsUrlButton
+from datetime_now import dt_now
+from filters.form_order import IsPostLength, IsCommentLength, IsUrlButton
 from keyboards.inline.advertiser.form_order import InlineFormOrderAdvertiser
 from keyboards.reply.advertiser.advertiser import ReplyAdvertiser
 from keyboards.reply.common.user import ReplyUser
@@ -22,6 +21,7 @@ from text.advertiser.formOrder import FormOrder
 from text.fuction.decoding import Decoding
 from text.fuction.function import TextFunc
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -66,8 +66,6 @@ class FormOrderAdvertiser(StatesGroup):
     time_level_1 = State()
 
     order_level1 = State()
-
-
 
     @staticmethod
     async def _get_value(parameter_id: int, values: list):
@@ -121,17 +119,14 @@ class FormOrderAdvertiser(StatesGroup):
 
         # menu form order
     async def menu_form_order(self, message: Union[types.Message, types.CallbackQuery], state: FSMContext):
-        message = message
         await self.formOrderAdvertiser_level1.set()
         async with state.proxy() as data:
-            print(data)
             await self._callback_form_order(data=data)
             Lang, reply, inline, form = await self._prepare(data=data)
             if isinstance(message, types.Message):
                 await self._form_order(message, Lang, reply, inline, form, data)
             elif isinstance(message, types.CallbackQuery):
                 await self._form_order_back(message, inline, form)
-            print(data)
 
     async def _callback_form_order(self, data):
         if data.get('formOrder') is None or data.get('formOrder') == {}:
@@ -151,7 +146,7 @@ class FormOrderAdvertiser(StatesGroup):
             await self._update_type_platform(data=data)
 
     async def _prepare(self, data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyAdvertiser(language=data.get('lang'))
         status_parameters = await self._status_parameters(data)
         inline = InlineFormOrderAdvertiser(language=data.get('lang'), token=data.get("token"),
@@ -256,7 +251,7 @@ class FormOrderAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare_network(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlineFormOrderAdvertiser(language=data.get('lang'), network=data.get("formOrder").get("network"))
         return Lang, inline
 
@@ -328,7 +323,7 @@ class FormOrderAdvertiser(StatesGroup):
 
     async def _prepare_lang(self, data):
         await self._get_all_lang(data)
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlineFormOrderAdvertiser(language=data.get('lang'), token=data.get("token"),
                                            platform_lang=data.get("formOrder").get("platformLang"))
         return Lang, inline
@@ -369,7 +364,7 @@ class FormOrderAdvertiser(StatesGroup):
 
     async def _prepare_region(self, data):
         await self._get_all_regions(data)
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlineFormOrderAdvertiser(language=data.get('lang'), regions=data.get("formOrder").get("regions"))
         return Lang, inline
 
@@ -445,7 +440,7 @@ class FormOrderAdvertiser(StatesGroup):
 
     async def _prepare_age(self, data):
         await self._get_all_ages(data)
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlineFormOrderAdvertiser(language=data.get('lang'), age=data.get("formOrder").get("age"))
         return Lang, inline
 
@@ -477,7 +472,7 @@ class FormOrderAdvertiser(StatesGroup):
 
     async def _check_category(self, data, call):
         if len(data.get("formOrder").get("category").get("id")) == 0:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             await call.answer(text=Lang.alert.advertiser.category, show_alert=True)
         else:
             await self.formOrderAdvertiser_level2.set()
@@ -487,7 +482,7 @@ class FormOrderAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare_all_platform(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyAdvertiser(language=data.get('lang'))
         inline = InlineFormOrderAdvertiser(language=data.get('lang'), token=data.get("token"),
                                            all_channels=data.get('formOrder').get('channels'),
@@ -606,7 +601,7 @@ class FormOrderAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare_current_platform(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyAdvertiser(language=data.get('lang'))
         inline = InlineFormOrderAdvertiser(language=data.get('lang'), token=data.get("token"),
                                            accommodation=data.get('formOrder').get('current_platform'))
@@ -653,7 +648,7 @@ class FormOrderAdvertiser(StatesGroup):
             Lang, reply, inline, form = await self._prepare_all_platform(data)
             await self._all_platform(call, data, Lang, reply, inline, form)
         else:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             await call.answer(text=Lang.alert.advertiser.maxBasket, show_alert=True)
 
     # menu search & filters
@@ -745,7 +740,7 @@ class FormOrderAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare_basket(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyAdvertiser(language=data.get('lang'))
         inline = InlineFormOrderAdvertiser(language=data.get('lang'), token=data.get("token"),
                                            platform_list=data.get('formOrder').get("basket").get("channels"))
@@ -805,9 +800,7 @@ class FormOrderAdvertiser(StatesGroup):
         async with state.proxy() as data:
             await self._check_len_basket(message, data)
 
-
     async def menu_campaign_web_app(self, message: Union[types.Message, types.CallbackQuery], state: FSMContext):
-        print('333')
         async with state.proxy() as data:
             await self.formOrderAdvertiser_level4.set()
             data['formOrder'] = {}
@@ -816,7 +809,6 @@ class FormOrderAdvertiser(StatesGroup):
             status, Json = await fastapi.get_unpaid_basket(token=data.get("token"), language=data.get("lang"))
             await self._unpack_basket(data, Json)
             await self._total_cost(data)
-            # await self._check_len_basket(message, data)
 
     async def _unpack_basket(self, data, Json):
         await self._callback_form_order(data)
@@ -904,7 +896,7 @@ class FormOrderAdvertiser(StatesGroup):
     @staticmethod
     async def _prepare_post(data):
         reply = ReplyAdvertiser(language=data.get('lang'))
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         form = FormOrder(data=data.get("formOrder"), language=data.get("lang"))
         inline = InlineFormOrderAdvertiser(language=data.get('lang'), token=data.get("token"),
                                            url_buttons=data.get("formOrder").get("campaign").get("buttons"),
@@ -1223,7 +1215,7 @@ class FormOrderAdvertiser(StatesGroup):
     # menu busy day
     async def menu_calendar_busy(self, call: types.CallbackQuery, state: FSMContext):
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             await call.answer(text=Lang.alert.advertiser.busy, show_alert=True)
 
     # menu time
@@ -1235,7 +1227,7 @@ class FormOrderAdvertiser(StatesGroup):
         if datetime.strptime(call.data.split('_')[1], "%d.%m.%Y").date() >= dt_now.now().date() + timedelta(days=0):
             await self._valid_date(call, data)
         else:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             await call.answer(text=Lang.alert.common.calendar, show_alert=True)
 
     async def _valid_date(self, call, data):
@@ -1447,9 +1439,6 @@ class FormOrderAdvertiser(StatesGroup):
         post = data.get("formOrder").get("campaign").get("media")
         await bot.send_video(chat_id=call.from_user.id, video=post.get("file_id"))
 
-    async def default(self, call: types.CallbackQuery, state: FSMContext):
-        print(call.data)
-        print(await state.get_state())
 
     def register_handlers_form_order(self, dp: Dispatcher):
         # dp.register_message_handler(self.menu_form_order, text=Txt.menu.formOrder,                                      state="MenuAdvertiser:menuAdvertiser_level1")
@@ -1510,7 +1499,7 @@ class FormOrderAdvertiser(StatesGroup):
 
         dp.register_message_handler(self.menu_campaign, text=Txt.menu.task,                                             state=self.formOrderAdvertiser_level3)
 
-        dp.register_message_handler(self.menu_campaign_web_app, content_types=["web_app_data"],                           state='*')
+        dp.register_message_handler(self.menu_campaign_web_app, content_types=["web_app_data"],                         state='*')
 
         dp.register_callback_query_handler(self.menu_campaign, text="back",                                             state=self.formOrderAdvertiser_level5)
 
@@ -1552,5 +1541,4 @@ class FormOrderAdvertiser(StatesGroup):
 
         dp.register_callback_query_handler(self.menu_check_post, text="checkPost",                                      state=self.formOrderAdvertiser_level8)
 
-        # dp.register_callback_query_handler(self.default, lambda x: x.data.startswith(""),                                           state="*")
 

@@ -1,14 +1,6 @@
-import datetime
-
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
-from looping import fastapi
-from model.platform import Params
 from text.language.main import Text_main
-import calendar
-
-
-
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -19,7 +11,7 @@ class InlineAllOrderBlogger():
                  current_id: int = None, siteRequest: dict = None):
         self.__markup = None
         self.__language = language
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
         self.__all_channels = all_channels
         self.__channel = channel
         self.__current_id = current_id

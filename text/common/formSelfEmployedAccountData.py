@@ -1,9 +1,11 @@
+import datetime
 from math import ceil
 from string import Template
-import datetime
+
 from datetime_now import dt_now
-from text.language.main import Text_main
 from text.fuction.function import TextFunc
+from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -16,7 +18,7 @@ class FormSelfEmployedAccountData:
     def __init__(self, data: dict, language: str, email: str = None):
         self.__data = data
         self.__email = email
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
 
     async def _unpack(self):
         self.__fio_user = self.__data.get("fio", "...")

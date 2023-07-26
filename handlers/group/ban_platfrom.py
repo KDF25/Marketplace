@@ -3,7 +3,7 @@ from contextlib import suppress
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, BotBlocked
+from aiogram.utils.exceptions import *
 
 from config import bot, moderation_chat_id
 from filters.admin import IsAdmin
@@ -13,6 +13,7 @@ from model.moderation import ModerationModel
 from text.fuction.function import TextFunc
 from text.group.formModeration import FormModerationGroup
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -35,7 +36,7 @@ class BanPlatformGroup(StatesGroup):
     @staticmethod
     async def _prepare_group():
         lang = "rus"
-        Lang = Txt.language[lang]
+        Lang: Model = Txt.language[lang]
         inline = InlineGroupUser(language=lang)
         return Lang, inline
 
@@ -104,7 +105,7 @@ class BanPlatformGroup(StatesGroup):
     @staticmethod
     async def _prepare_ban_back(area_id: int):
         lang = "rus"
-        Lang = Txt.language[lang]
+        Lang: Model = Txt.language[lang]
         inline = InlineGroupUser(language=lang, enter_id=area_id)
         return Lang, inline
 

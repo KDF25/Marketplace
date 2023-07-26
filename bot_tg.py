@@ -364,7 +364,7 @@ all_orders_advertiser.register_handlers_all_orders_advertiser(dp=dp)
 post_moderation_advertiser.register_handlers(dp=dp)
 
 # moderator
-# menu group
+# # menu group
 menu_group.register_handlers_menu_group(dp=dp)
 withdraw_group.register_handlers_withdraw(dp=dp)
 moderation_group.register_handlers_moderation(dp=dp)

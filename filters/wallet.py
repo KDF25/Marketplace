@@ -8,6 +8,7 @@ from phonenumbers.phonenumberutil import NumberParseException
 from config import bot
 from looping import pg
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -21,9 +22,9 @@ class IsWithdraw(BoundFilter):
                 return True
             else:
                 lang = await pg.select_language(user_id=message.from_user.id)
-                Text_lang = Txt.language[lang]
-                await bot.send_message(chat_id=message.from_user.id, text=Text_lang.alert.common.minWithdraw)
+                Lang: Model = Txt.language[lang]
+                await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.common.minWithdraw)
         else:
             lang = await pg.select_language(user_id=message.from_user.id)
-            Text_lang = Txt.language[lang]
-            await bot.send_message(chat_id=message.from_user.id, text=Text_lang.alert.common.lengthPrice)
+            Lang: Model = Txt.language[lang]
+            await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.common.lengthPrice)

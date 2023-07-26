@@ -1,12 +1,13 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
 
 class ReplyUser:
     def __init__(self):
-        self.__Lang = Txt.language["rus"]
+        self.__Lang: Model = Txt.language["rus"]
 
     @staticmethod
     async def menu_group():

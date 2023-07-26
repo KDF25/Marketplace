@@ -1,6 +1,7 @@
 from string import Template
 
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -9,7 +10,7 @@ class FormPersonalData:
 
     def __init__(self, data: dict):
         self.__data = data
-        self.__Lang = Txt.language[self.__data.get('lang')]
+        self.__Lang: Model = Txt.language[self.__data.get('lang')]
 
     async def menu_personal_data(self):
         text = Template("<b>$account:</b> $account_user\n\n"

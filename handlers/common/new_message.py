@@ -4,7 +4,7 @@ from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import IsReplyFilter
 from aiogram.dispatcher.filters.state import StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, BotBlocked
+from aiogram.utils.exceptions import *
 
 from config import bot
 from keyboards.inline.blogger.newPost import InlinePostBlogger
@@ -12,6 +12,7 @@ from looping import fastapi, pg
 from text.blogger.formNewOrder import FormNewOrder
 from text.fuction.function import TextFunc
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -90,7 +91,7 @@ class NewMessage(StatesGroup):
         async with state.proxy() as data:
             data["message_id"] = call.message.message_id
             data["blogger_area_id"] = int(call.data.split("_")[1])
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePostBlogger(language=data.get('lang'), blogger_area_id=data["blogger_area_id"])
             text = call.message.html_text + f"\n\n{Lang.newOrder.advertiser.sendMessage}"
             with suppress(MessageNotModified, MessageToEditNotFound):
@@ -104,7 +105,7 @@ class NewMessage(StatesGroup):
         async with state.proxy() as data:
             data["message_id"] = call.message.message_id
             data["blogger_area_id"] = int(call.data.split("_")[1])
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePostBlogger(language=data.get('lang'), blogger_area_id=data["blogger_area_id"])
             text = call.message.html_text.split(f"\n\n{Lang.newOrder.advertiser.sendMessage}")[0]
             with suppress(MessageNotModified, MessageToEditNotFound):
@@ -118,7 +119,7 @@ class NewMessage(StatesGroup):
         async with state.proxy() as data:
             data["message_id"] = call.message.message_id
             data["blogger_area_id"] = int(call.data.split("_")[1])
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePostBlogger(language=data.get('lang'), blogger_area_id=data["blogger_area_id"])
             text = call.message.html_text + f"\n\n{Lang.newOrder.advertiser.sendMessage}"
             with suppress(MessageNotModified, MessageToEditNotFound):
@@ -132,7 +133,7 @@ class NewMessage(StatesGroup):
         async with state.proxy() as data:
             data["message_id"] = call.message.message_id
             data["blogger_area_id"] = int(call.data.split("_")[1])
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePostBlogger(language=data.get('lang'), blogger_area_id=data["blogger_area_id"])
             text = call.message.html_text.split(f"\n\n{Lang.newOrder.advertiser.sendMessage}")[0]
             with suppress(MessageNotModified, MessageToEditNotFound):
@@ -148,7 +149,7 @@ class NewMessage(StatesGroup):
                 Callback = message.reply_to_message.reply_markup.inline_keyboard[0][0].callback_data.split("_")
                 blogger_area_id = int(message.reply_to_message.reply_markup.inline_keyboard[0][0].callback_data.split("_")[1])
                 status, json = await self._project_blogger(blogger_area_id, data)
-                Lang = Txt.language[data.get('lang')]
+                Lang: Model = Txt.language[data.get('lang')]
                 if Callback[0] == "BackNewMessageFromAdvertiser" or Callback[0] == "BackMessageFromAdvertiser":
                     send = SendMessageAdvertiser(data=json, text=message.html_text, blogger_area_id=blogger_area_id)
                     await send.answer()
@@ -167,7 +168,7 @@ class NewMessage(StatesGroup):
         async with state.proxy() as data:
             data["message_id"] = call.message.message_id
             data["blogger_area_id"] = int(call.data.split("_")[1])
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePostBlogger(language=data.get('lang'), blogger_area_id=data["blogger_area_id"])
             text = call.message.html_text + f"\n\n{Lang.newOrder.advertiser.sendMessage}"
             with suppress(MessageNotModified, MessageToEditNotFound):
@@ -180,7 +181,7 @@ class NewMessage(StatesGroup):
         async with state.proxy() as data:
             data["message_id"] = call.message.message_id
             data["blogger_area_id"] = int(call.data.split("_")[1])
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             status, json = await self._project_blogger(data["blogger_area_id"], data)
             inline = InlinePostBlogger(language=data.get('lang'), blogger_area_id=data["blogger_area_id"],
                                        order_id=json.get("order_id"))

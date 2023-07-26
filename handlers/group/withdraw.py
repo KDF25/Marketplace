@@ -3,7 +3,7 @@ from contextlib import suppress
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, BotBlocked, ChatNotFound
+from aiogram.utils.exceptions import *
 
 from config import bot, moderation_chat_id
 from filters.admin import IsAdmin
@@ -13,6 +13,7 @@ from model.wallet import WalletModel
 from text.fuction.function import TextFunc
 from text.group.formWithdraw import FormWithdrawGroup
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -36,7 +37,7 @@ class WithdrawGroup(StatesGroup):
     @staticmethod
     async def _prepare_group():
         lang = "rus"
-        Lang = Txt.language[lang]
+        Lang: Model = Txt.language[lang]
         inline = InlineGroupUser(language=lang)
         return Lang, inline
 
@@ -106,7 +107,7 @@ class WithdrawGroup(StatesGroup):
     @staticmethod
     async def _prepare_cancel_back(journal_id: int):
         lang = "rus"
-        Lang = Txt.language[lang]
+        Lang: Model = Txt.language[lang]
         inline = InlineGroupUser(language=lang, enter_id=journal_id)
         return Lang, inline
 

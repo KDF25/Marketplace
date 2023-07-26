@@ -4,17 +4,17 @@ from typing import Union
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, \
-    MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
 from config import bot
-from filters.platform import IsTitle, IsDescription, IsPrice
+from filters.platform import IsDescription, IsPrice
 from keyboards.inline.blogger.platform import InlinePlatformBlogger
 from looping import fastapi
 from model.platform import UpdatePlatform, Params, Values
 from text.blogger.formPlatform import FormPlatform
 from text.fuction.decoding import Decoding
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -69,7 +69,7 @@ class ChangePlatformBlogger(StatesGroup):
                 await self._change(call, form, inline)
                 break
         else:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             await call.answer(text=Lang.alert.blogger.price, show_alert=True)
 
     async def menu_change_back(self, call: types.CallbackQuery, state: FSMContext):
@@ -102,7 +102,7 @@ class ChangePlatformBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'), token=data.get("token"))
         return Lang, inline
 
@@ -158,7 +158,7 @@ class ChangePlatformBlogger(StatesGroup):
 
     async def _prepare_lang(self, data):
         await self._get_all_lang(data)
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'),  token=data.get("token"),
                                        platform_lang=data.get("current_platform").get("platformLang"))
         return Lang, inline
@@ -183,7 +183,7 @@ class ChangePlatformBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_update(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'))
         form = FormPlatform(data=data.get("current_platform"), language=data.get("lang"))
         return Lang, inline, form
@@ -223,7 +223,7 @@ class ChangePlatformBlogger(StatesGroup):
 
     async def _prepare_region(self, data):
         await self._get_all_regions(data)
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'), regions=data.get("current_platform").get("regions"))
         return Lang, inline
 
@@ -290,7 +290,7 @@ class ChangePlatformBlogger(StatesGroup):
 
     async def _prepare_age(self, data):
         await self._get_all_ages(data)
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'), age=data.get("current_platform").get("age"))
         return Lang, inline
 
@@ -358,7 +358,7 @@ class ChangePlatformBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_format(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'), formats=data.get("current_platform").get("accommodation"))
         form = FormPlatform(language=data.get('lang'), data=data.get('current_platform').get("accommodation"))
         return Lang, inline, form

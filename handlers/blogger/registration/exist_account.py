@@ -2,20 +2,20 @@ import asyncio
 from contextlib import suppress
 from typing import Union
 
-from aiogram import types, Dispatcher
+from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
-from config import bot
-from filters.registration import IsEmail, IsCode, IsPassword, HaveAccount, IsExist
+from filters.registration import *
 from handlers.blogger.menu import MenuBlogger
 from keyboards.inline.common.registration import InlineRegistration
 from keyboards.reply.common.user import ReplyUser
 from looping import fastapi, pg
+from model.user import Code, User
 from text.common.formExist import FormExist
 from text.language.main import Text_main
-from model.user import Code, User
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -29,7 +29,7 @@ class ExistBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlineRegistration(language=data.get('lang'))
         return Lang, inline
 
@@ -150,7 +150,7 @@ class ExistBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_menu(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyUser(language=data.get('lang'))
         return Lang, reply
 

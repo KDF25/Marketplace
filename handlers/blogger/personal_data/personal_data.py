@@ -4,7 +4,7 @@ from typing import Union
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageToDeleteNotFound,  MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
 from config import bot
 from keyboards.inline.common.personal_data import InlinePersonalData
@@ -19,6 +19,7 @@ from text.common.formSelfEmployedAccountData import FormSelfEmployedAccountData
 from text.common.formSelfEmployedCardData import FormSelfEmployedCardData
 from text.fuction.function import TextFunc
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -34,13 +35,12 @@ class PersonalDataBlogger(StatesGroup):
     # menu personal data
     async def menu_personal_data(self, message: Union[types.Message, types.CallbackQuery], state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             state_name = await self._exist_personal_data(message=message, data=data)
         await state.set_state(state=state_name)
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyUser(language=data.get('lang'))
         inline = InlinePersonalData(language=data.get('lang'))
         return Lang, reply, inline
@@ -118,7 +118,6 @@ class PersonalDataBlogger(StatesGroup):
     async def menu_add_data(self, call: types.CallbackQuery, state: FSMContext):
         await self.personalDataBlogger_level2.set()
         async with state.proxy() as data:
-            print(data)
             Lang, reply, inline = await self._prepare(data=data)
             await self._add(message=call,Lang=Lang, reply=reply, inline=inline, data=data)
 
@@ -142,13 +141,12 @@ class PersonalDataBlogger(StatesGroup):
     async def menu_logout(self, message: Union[types.Message, types.CallbackQuery], state: FSMContext):
         await self.logout_level1.set()
         async with state.proxy() as data:
-            print(data)
             Lang, reply, inline = await self._prepare_logout(data=data)
             await self._logout(message=message,Lang=Lang, reply=reply, inline=inline, data=data)
 
     @staticmethod
     async def _prepare_logout(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyUser(language=data.get('lang'))
         inline = InlinePersonalData(language=data.get('lang'))
         return Lang, reply, inline
@@ -165,7 +163,6 @@ class PersonalDataBlogger(StatesGroup):
     # menu common start
     async def menu_common_start(self, call: types.CallbackQuery, state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             Lang, reply, inline = await self._prepare_common(data=data)
             await pg.update_telegram_user(user_id=call.from_user.id, client_id=None, email=None)
             await self._common_start(message=call, Lang=Lang, reply=reply, data=data)
@@ -175,7 +172,7 @@ class PersonalDataBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_common(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyStart()
         inline = InlinePersonalData(language=data.get('lang'))
         return Lang, reply, inline

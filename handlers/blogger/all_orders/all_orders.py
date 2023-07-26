@@ -4,15 +4,14 @@ from typing import Union
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, \
-    MessageIdentifierNotSpecified, MessageCantBeDeleted, BotBlocked
+from aiogram.utils.exceptions import *
 
 from config import bot
 from handlers.common.new_message import SendMessageAdvertiser
 from keyboards.inline.blogger.all_order import InlineAllOrderBlogger
 from keyboards.inline.blogger.newPost import InlinePostBlogger
 from keyboards.reply.common.user import ReplyUser
-from looping import fastapi, pg
+from looping import fastapi
 from model.all_orders import AllOrder
 from model.form_order import OtherModel, ChannelListModel
 from model.platform import GetPlatform
@@ -20,6 +19,7 @@ from text.blogger.formAllOrder import FormAllOrderBlogger
 from text.blogger.formNewOrder import FormNewOrder
 from text.fuction.function import TextFunc
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -63,7 +63,7 @@ class AllOrderBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyUser(language=data.get('lang'))
         inline = InlineAllOrderBlogger(all_channels=data.get("allOrder").get("allOrder").get("channels", {}),
                                        language=data.get('lang'), siteRequest=data.get('siteRequest_all'))
@@ -253,7 +253,7 @@ class AllOrderBlogger(StatesGroup):
     @staticmethod
     async def _prepare_cancel(call, data):
         blogger_area_id = int(call.data.split("_")[1])
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePostBlogger(language=data.get('lang'),  blogger_area_id=blogger_area_id)
         return Lang, inline
 
@@ -334,7 +334,7 @@ class AllOrderBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_send_advertiser(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePostBlogger(language=data.get('lang'), blogger_area_id=data.get("blogger_area_id"))
         return Lang, inline
 
@@ -352,7 +352,7 @@ class AllOrderBlogger(StatesGroup):
             status, json = await self._project(data)
             send = SendMessageAdvertiser(data=json, text=message.html_text, blogger_area_id=data.get("blogger_area_id"))
             await send.answer()
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             with suppress(MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted):
                 await bot.delete_message(chat_id=message.from_user.id, message_id=data.get('message_id'))
             await bot.send_message(chat_id=message.from_user.id, text=Lang.newOrder.blogger.end)
@@ -410,7 +410,7 @@ class AllOrderBlogger(StatesGroup):
     @staticmethod
     async def menu_zero_count(call: types.CallbackQuery, state: FSMContext):
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             await call.answer(show_alert=True, text=Lang.alert.common.zeroCount)
 
     def register_handlers_all_orders_blogger(self, dp: Dispatcher):

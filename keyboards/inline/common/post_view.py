@@ -1,12 +1,11 @@
-import datetime
-
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from looping import fastapi
-from model.platform import Params
 from text.language.main import Text_main
-import calendar
+from text.language.ru import Ru_language as Model
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
+from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -14,7 +13,7 @@ Txt = Text_main()
 class InlinePostView():
 
     def __init__(self, language: str, url_buttons: dict):
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
         self.__url_buttons = url_buttons
         self.__markup = None
 

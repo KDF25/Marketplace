@@ -1,6 +1,7 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -10,7 +11,7 @@ class InlineWalletUser():
     def __init__(self, language: str):
         self.__markup = None
         self.__language = language
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
         self.__back = InlineKeyboardButton(text=self.__Lang.buttons.common.back, callback_data="back")
 
     async def menu_back(self):

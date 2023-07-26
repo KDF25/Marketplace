@@ -8,6 +8,7 @@ from looping import fastapi
 from text.common.formWallet import FormWallet
 from text.fuction.function import TextFunc
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -26,7 +27,7 @@ class HistoryWalletBlogger(StatesGroup):
         print(events)
         if status == 200:
             if len(events) == 0:
-                Lang = Txt.language[data.get('lang')]
+                Lang: Model = Txt.language[data.get('lang')]
                 await call.answer(text=Lang.alert.common.zeroCount, show_alert=True)
             else:
                 await call.answer()

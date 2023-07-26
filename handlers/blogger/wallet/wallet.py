@@ -12,6 +12,7 @@ from keyboards.reply.common.user import ReplyUser
 from looping import fastapi
 from text.common.formWallet import FormWallet
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 from text.fuction.function import TextFunc
 
 Txt = Text_main()
@@ -61,7 +62,7 @@ class WalletBlogger(StatesGroup):
     async def _prepare(data):
         form = FormWallet(data=data, language=data.get("lang"))
         inline = InlineWalletUser(language=data.get('lang'))
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyUser(language=data.get('lang'))
         return form, inline, Lang, reply
 

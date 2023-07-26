@@ -1,5 +1,3 @@
-from aiogram.utils.exceptions import BotBlocked
-
 from config import bot
 from keyboards.inline.blogger.newPost import InlinePostBlogger
 from looping import pg, fastapi
@@ -7,9 +5,6 @@ from model.form_order import PostModel
 from text.advertiser.formOrder import FormOrder
 from text.fuction.function import TextFunc
 from text.language.main import Text_main
-
-from typing import Any
-from aiohttp import FormData, ClientSession, ClientResponse
 
 Txt = Text_main()
 func = TextFunc()
@@ -31,9 +26,7 @@ class SendBlogger:
         for basket_channel in self.__data.get('formOrder').get("basket").get("channels"):
             for channel in channels_response:
                 if channel.get("area_id") == basket_channel.get("id"):
-                    # self.__blogger_area_id = channel.get("id")
                     await self._send_blogger(basket_channel, channel.get("id"))
-                    # break
 
     async def _send_blogger(self, channel,  blogger_area_id):
         users = await pg.select_users(client_id=channel["client_id"])
@@ -41,10 +34,10 @@ class SendBlogger:
             await self._post(channel, user_id[0],  blogger_area_id)
 
     async def _post(self, channel, user_id,  blogger_area_id):
-        # try:
-        await self._send_post(channel, user_id,  blogger_area_id)
-        # except Exception:
-        #     await pg.block_status(user_id=user_id, status=False)
+        try:
+            await self._send_post(channel, user_id,  blogger_area_id)
+        except Exception:
+            await pg.block_status(user_id=user_id, status=False)
 
     async def _send_post(self, channel, user_id,  blogger_area_id):
         lang = await pg.select_language(user_id=user_id)

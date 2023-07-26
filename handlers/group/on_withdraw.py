@@ -4,6 +4,7 @@ from looping import fastapi
 from text.fuction.function import TextFunc
 from text.group.formWithdraw import FormWithdrawGroup
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -13,7 +14,7 @@ class OnWithdrawGroup:
 
     async def start(self):
         status, json = await fastapi.get_on_withdraw()
-        Lang = Txt.language["rus"]
+        Lang: Model = Txt.language["rus"]
         if status == 200 and len(json.get("journal")) != 0:
             withdrawal = json.get("journal")
             await self._get_all_withdraw(withdrawal=withdrawal)

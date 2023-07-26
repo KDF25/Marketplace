@@ -13,6 +13,7 @@ from looping import fastapi
 from model.calendar import CalendarModel
 from text.fuction.function import TextFunc
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -47,7 +48,7 @@ class CalendarBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_calendar(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'), token=data.get("token"),
                                        date=data.get('current_platform').get('current_date'),
                                        calendar_list=data.get("current_platform").get("calendar"))
@@ -80,7 +81,7 @@ class CalendarBlogger(StatesGroup):
             await self._check_status(data=data, call=call, status=status)
 
     async def _check_status(self, data, call, status):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         if status == "free":
             await call.answer(text=Lang.alert.blogger.free, show_alert=True)
             await self._success_set_status(data=data, call=call)

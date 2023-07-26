@@ -1,5 +1,6 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -13,7 +14,7 @@ class InlinePostBlogger():
         self.__client_id = client_id
         self.__blogger_area_id = blogger_area_id
         self.__area_id = area_id
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
 
     async def menu_back(self):
         markup = InlineKeyboardMarkup(row_width=1)

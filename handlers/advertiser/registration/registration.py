@@ -5,8 +5,7 @@ from typing import Union
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, \
-    MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
 from config import bot
 from filters.registration import IsEmail, IsCode, IsPassword, IsNew
@@ -19,6 +18,7 @@ from text.common.formCommon import FormCommon
 from text.common.formPersonalData import FormPersonalData
 from text.common.formRegistration import FormRegistration
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -60,7 +60,7 @@ class RegistrationAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlineRegistration(language=data.get('lang'))
         return Lang, inline
 
@@ -176,7 +176,7 @@ class RegistrationAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare_rec(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline_rec = InlinePersonalData(language=data.get('lang'))
         reply = ReplyUser(language=data.get('lang'))
         form_platform = FormPersonalData(data=data)
@@ -252,4 +252,6 @@ class RegistrationAdvertiser(StatesGroup):
 
         dp.register_callback_query_handler(self.menu_add_data, text="addData",                                          state=self.regAdvertiser_level5)
         dp.register_callback_query_handler(self.menu_add_data, text="back",                                             state=["FirstSelfEmployedAdvertiser:firstData_level1",
-                                                                                                                               "FirstEntityAdvertiser:firstData_level1"])
+                                                                                                                               "FirstEntityAdvertiser:firstData_level1",
+                                                                                                                               "FirstSelfEmployedAccountAdvertiser:firstData_level1",
+                                                                                                                               "FirstSelfEmployedCardAdvertiser:firstData_level1"])

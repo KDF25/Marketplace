@@ -7,14 +7,14 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from attrs import define, field
 
 
-# storage = RedisStorage2()
-storage = MemoryStorage()
+storage = RedisStorage2()
+# storage = MemoryStorage()
 scheduler = AsyncIOScheduler(timezone="Asia/Tashkent")
 scheduler.start()
 
 PGUSER = "postgres"
 PASSWORD = "karimov"
-token = '5504892953:AAH-WUECmS8AUckggr1BhzKnTN5_FEgBoBQ'
+token = '5369594012:AAEgKivC9l4sqBP_mLF7IMjz1c-9OJnn65w'
 ip = 'localhost'
 
 moderation_chat_id = -1001856703028

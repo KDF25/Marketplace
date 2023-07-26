@@ -2,9 +2,8 @@ from contextlib import suppress
 
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters import IsReplyFilter
 from aiogram.dispatcher.filters.state import StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, BotBlocked
+from aiogram.utils.exceptions import *
 
 from config import bot, moderation_chat_id
 from keyboards.inline.blogger.newPost import InlinePostBlogger
@@ -14,6 +13,7 @@ from text.advertiser.formPostModeration import FormPostModeration
 from text.blogger.formNewOrder import FormNewOrder
 from text.fuction.function import TextFunc
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -51,7 +51,7 @@ class PostModerationAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare_accept(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePostBlogger(language=data.get("lang"), area_id=data.get("area_id"))
         return Lang, inline
 
@@ -94,7 +94,7 @@ class PostModerationAdvertiser(StatesGroup):
     async def menu_cancel(call: types.CallbackQuery, state: FSMContext):
         async with state.proxy() as data:
             data["blogger_area_id"] = int(call.data.split("_")[1])
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePostBlogger(language=data.get('lang'), blogger_area_id=data["blogger_area_id"])
             with suppress(MessageNotModified, MessageToEditNotFound):
                 await call.answer()
@@ -126,7 +126,7 @@ class PostModerationAdvertiser(StatesGroup):
             await self._check_reject(call, data, status)
 
     async def _check_reject(self, call, data, status):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         if status == 200:
             status, json = await fastapi.project_blogger(blogger_area_id=int(call.data.split("_")[1]), token=data.get("token"))
             await self._reject(data, call, Lang, json)

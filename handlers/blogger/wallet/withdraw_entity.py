@@ -9,7 +9,7 @@ from aiogram.utils.exceptions import MessageNotModified, MessageToDeleteNotFound
     MessageCantBeDeleted, MessageToEditNotFound
 
 from config import bot
-from filters.personal_data import IsTitle, IsLegalAddress, IsInn, IsPaymentAccount, IsBank, IsMfo, IsPhone
+from filters.personal_data import *
 from filters.wallet import IsWithdraw
 from handlers.group.send_withdraw import SendWithdraw
 from keyboards.inline.common.personal_data import InlinePersonalData
@@ -19,6 +19,7 @@ from text.common.formEntityData import FormEntityData
 from text.common.formWallet import FormWallet
 from text.fuction.function import TextFunc
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -70,7 +71,7 @@ class WithdrawEntityBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePersonalData(language=data.get('lang'))
         form = FormEntityData(data=data.get("entity"), language=data.get('lang'), email=data.get("email"))
         return Lang, inline, form
@@ -98,7 +99,7 @@ class WithdrawEntityBlogger(StatesGroup):
     async def menu_title(self, call: types.CallbackQuery, state: FSMContext):
         await self.title_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -113,7 +114,7 @@ class WithdrawEntityBlogger(StatesGroup):
     async def menu_legal_address(self, call: types.CallbackQuery, state: FSMContext):
         await self.legalAddress_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -128,7 +129,7 @@ class WithdrawEntityBlogger(StatesGroup):
     async def menu_inn(self, call: types.CallbackQuery, state: FSMContext):
         await self.inn_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -143,7 +144,7 @@ class WithdrawEntityBlogger(StatesGroup):
     async def menu_payment_account(self, call: types.CallbackQuery, state: FSMContext):
         await self.paymentAccount_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -158,7 +159,7 @@ class WithdrawEntityBlogger(StatesGroup):
     async def menu_bank(self, call: types.CallbackQuery, state: FSMContext):
         await self.bank_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -173,7 +174,7 @@ class WithdrawEntityBlogger(StatesGroup):
     async def menu_mfo(self, call: types.CallbackQuery, state: FSMContext):
         await self.mfo_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -188,7 +189,7 @@ class WithdrawEntityBlogger(StatesGroup):
     async def menu_phone(self, call: types.CallbackQuery, state: FSMContext):
         await self.phone_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -215,7 +216,7 @@ class WithdrawEntityBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_wallet(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePersonalData(language=data.get('lang'))
         form = FormWallet(data=data, language=data.get('lang'))
         return Lang, inline, form
@@ -299,7 +300,7 @@ class WithdrawEntityBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_end(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyUser(language=data.get('lang'))
         form_wallet = FormWallet(cash=data.get('entity').get("cash"), language=data.get('lang'))
         return Lang, reply, form_wallet

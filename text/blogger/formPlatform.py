@@ -1,14 +1,13 @@
 import datetime
 from math import ceil
 from string import Template
+
 from aiogram.utils.markdown import hlink
-from random import randint
 
 from datetime_now import dt_now
-from looping import fastapi
-from model.platform import GetValue
-from text.language.main import Text_main
 from text.fuction.function import TextFunc
+from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -26,7 +25,7 @@ class FormPlatform:
         self.__all_platform = ""
         self.__data = data
         self.__formats = formats
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
 
     async def platform_reject(self):
         text = Template("$alert\n\n"

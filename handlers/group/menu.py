@@ -11,10 +11,9 @@ from handlers.group.on_ban_platform import OnBanPlatform
 from handlers.group.on_moderation import OnModerationGroup
 from handlers.group.on_withdraw import OnWithdrawGroup
 from handlers.group.withdraw import WithdrawGroup
-from keyboards.inline.common.common import Start
 from keyboards.reply.group.user import ReplyUser
-from looping import pg
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -31,7 +30,6 @@ class MenuGroup(StatesGroup):
     # menu reply
     async def menu_reply(self, message: types.Message, state: FSMContext):
         try:
-            print(2222)
             await self.start.set()
             type_id = await self._unpack_reply(message=message)
             await self._type(type_id=type_id, message=message)
@@ -46,7 +44,7 @@ class MenuGroup(StatesGroup):
 
     @staticmethod
     async def _type(type_id: str, message: types.Message):
-        Lang = Txt.language["rus"]
+        Lang: Model = Txt.language["rus"]
         if type_id == "#journalId":
             Class = WithdrawGroup()
             await Class.menu_withdraw_reject(message=message)
@@ -74,7 +72,7 @@ class MenuGroup(StatesGroup):
 
     @staticmethod
     async def menu_platform_find(message: types.Message, state: FSMContext):
-        Lang = Txt.language["rus"]
+        Lang: Model = Txt.language["rus"]
         await bot.send_message(chat_id=moderation_chat_id, text=Lang.banPlatform.group.start)
 
     # register_handler

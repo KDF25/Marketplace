@@ -5,6 +5,7 @@ from looping import fastapi
 
 from looping import pg
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 import re
 Txt = Text_main()
@@ -23,8 +24,8 @@ class IsEmail(BoundFilter):
             return True
         else:
             lang = await pg.select_language(user_id=message.from_user.id)
-            Text_lang = Txt.language[lang]
-            await bot.send_message(chat_id=message.from_user.id, text=Text_lang.alert.common.nonFormat)
+            Lang: Model = Txt.language[lang]
+            await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.common.nonFormat)
 
 
 class IsNew(BoundFilter):
@@ -35,8 +36,8 @@ class IsNew(BoundFilter):
             return True
         else:
             lang = await pg.select_language(user_id=message.from_user.id)
-            Text_lang = Txt.language[lang]
-            await bot.send_message(chat_id=message.from_user.id, text=Text_lang.alert.common.existUser)
+            Lang: Model = Txt.language[lang]
+            await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.common.existUser)
 
 
 class IsExist(BoundFilter):
@@ -47,8 +48,8 @@ class IsExist(BoundFilter):
             return True
         else:
             lang = await pg.select_language(user_id=message.from_user.id)
-            Text_lang = Txt.language[lang]
-            await bot.send_message(chat_id=message.from_user.id, text=Text_lang.alert.common.nonAccount)
+            Lang: Model = Txt.language[lang]
+            await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.common.nonAccount)
 
 
 class IsCode(BoundFilter):
@@ -64,6 +65,6 @@ class IsPassword(BoundFilter):
             return True
         else:
             lang = await pg.select_language(user_id=message.from_user.id)
-            Text_lang = Txt.language[lang]
-            await bot.send_message(chat_id=message.from_user.id, text=Text_lang.alert.common.nonFormat)
+            Lang: Model = Txt.language[lang]
+            await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.common.nonFormat)
 

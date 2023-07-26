@@ -13,8 +13,9 @@ from looping import fastapi
 from model.form_order import ChannelListModel, OtherModel
 from model.platform import GetPlatform
 from text.blogger.formPlatform import FormPlatform
-from text.language.main import Text_main
 from text.fuction.function import TextFunc
+from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -73,7 +74,7 @@ class PlatformBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyUser(language=data.get('lang'))
         inline = InlinePlatformBlogger(language=data.get('lang'), platform=data.get("all_platform"),
                                        siteRequest=data.get("siteRequest"))

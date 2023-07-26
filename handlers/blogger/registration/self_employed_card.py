@@ -1,19 +1,16 @@
 from contextlib import suppress
 from typing import Union
 
-from aiogram import types, Dispatcher
+from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
-from config import bot
+from filters.personal_data import *
 from keyboards.inline.common.personal_data import InlinePersonalData
 from keyboards.reply.common.user import ReplyUser
 from looping import fastapi
 from text.common.formSelfEmployedCardData import FormSelfEmployedCardData
-from text.language.main import Text_main
-from filters.personal_data import IsFio, IsNumber, IsDate, IsInn, IsPaymentAccount, IsBank, IsMfo, IsPhone, IsPinfl, \
-    IsCardNumber, IsCardDate
 from text.fuction.function import TextFunc
 
 Txt = Text_main()
@@ -64,7 +61,7 @@ class FirstSelfEmployedCardBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePersonalData(language=data.get('lang'))
         form = FormSelfEmployedCardData(data=data.get("selfEmployedCard"), language=data.get('lang'), email=data.get("email"))
         return Lang, inline, form
@@ -81,7 +78,7 @@ class FirstSelfEmployedCardBlogger(StatesGroup):
     async def menu_fio(self, call: types.CallbackQuery, state: FSMContext):
         await self.fio_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -98,7 +95,7 @@ class FirstSelfEmployedCardBlogger(StatesGroup):
     async def menu_number(self, call: types.CallbackQuery, state: FSMContext):
         await self.number_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -115,7 +112,7 @@ class FirstSelfEmployedCardBlogger(StatesGroup):
     async def menu_date(self, call: types.CallbackQuery, state: FSMContext):
         await self.date_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -132,7 +129,7 @@ class FirstSelfEmployedCardBlogger(StatesGroup):
     async def menu_pinfl(self, call: types.CallbackQuery, state: FSMContext):
         await self.pinfl_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -149,7 +146,7 @@ class FirstSelfEmployedCardBlogger(StatesGroup):
     async def menu_payment_account(self, call: types.CallbackQuery, state: FSMContext):
         await self.paymentAccount_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -166,7 +163,7 @@ class FirstSelfEmployedCardBlogger(StatesGroup):
     async def menu_bank(self, call: types.CallbackQuery, state: FSMContext):
         await self.bank_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -183,7 +180,7 @@ class FirstSelfEmployedCardBlogger(StatesGroup):
     async def menu_mfo(self, call: types.CallbackQuery, state: FSMContext):
         await self.mfo_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -200,7 +197,7 @@ class FirstSelfEmployedCardBlogger(StatesGroup):
     async def menu_phone(self, call: types.CallbackQuery, state: FSMContext):
         await self.phone_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -218,7 +215,7 @@ class FirstSelfEmployedCardBlogger(StatesGroup):
     async def menu_card_number(self, call: types.CallbackQuery, state: FSMContext):
         await self.cardNumber_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -235,7 +232,7 @@ class FirstSelfEmployedCardBlogger(StatesGroup):
     async def menu_card_date(self, call: types.CallbackQuery, state: FSMContext):
         await self.cardDate_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -251,13 +248,12 @@ class FirstSelfEmployedCardBlogger(StatesGroup):
     # menu_end
     async def menu_end(self, call: types.CallbackQuery, state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             if await self._check_data(call, data):
                 await state.set_state("MenuBlogger:menuBlogger_level1")
 
     @staticmethod
     async def _prepare_end(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyUser(language=data.get('lang'))
         return Lang, reply
 

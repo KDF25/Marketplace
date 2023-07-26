@@ -12,6 +12,7 @@ from filters.admin import IsAdmin
 from keyboards.inline.admin.admin import InlineAdmin
 from text.admin.formAdmin import FormAdmin
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 inline = InlineAdmin()

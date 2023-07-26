@@ -13,6 +13,7 @@ from looping import fastapi
 from model.wallet import WalletModel
 from text.common.formWallet import FormWallet
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 from filters.personal_data import IsNumber, IsMinPayment
 from text.fuction.function import TextFunc
 
@@ -33,14 +34,14 @@ class PaymentCommonBlogger(StatesGroup):
     async def _prepare(data):
         form = FormWallet(data=data, language=data.get("lang"))
         inline = InlineWalletUser(language=data.get('lang'))
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         return Lang, form, inline
 
     # menu cash
     async def menu_cash(self, call: types.CallbackQuery, state: FSMContext):
         await self.paymentCommon_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlineWalletUser(language=data.get('lang'))
             with suppress(MessageNotModified, MessageToEditNotFound):
                 await call.answer()
@@ -68,7 +69,7 @@ class PaymentCommonBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_employment(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         form = FormWallet(data=data, language=data.get("lang"))
         inline = InlineWalletUser(language=data.get('lang'))
         return Lang, form, inline
@@ -84,7 +85,7 @@ class PaymentCommonBlogger(StatesGroup):
     async def menu_self_employed(self, call: types.CallbackQuery, state: FSMContext):
         await self.paymentCommon_level3.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlineWalletUser(language=data.get('lang'))
             with suppress(MessageNotModified, MessageToEditNotFound):
                 await call.answer()

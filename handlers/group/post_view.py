@@ -1,10 +1,10 @@
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
+from aiogram.types.input_file import InputFile
 from aiogram.utils.exceptions import WrongFileIdentifier
 
 from config import bot, moderation_chat_id
-from aiogram.types.input_file import InputFile
 from keyboards.inline.common.post_view import InlinePostView
 from looping import fastapi
 from text.fuction.function import TextFunc

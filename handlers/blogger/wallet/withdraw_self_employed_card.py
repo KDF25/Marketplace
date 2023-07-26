@@ -4,8 +4,7 @@ from typing import Union
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, \
-    MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
 from config import bot
 from filters.personal_data import IsFio, IsNumber, IsDate, IsPinfl, IsPaymentAccount, IsBank, IsMfo, IsPhone, \
@@ -19,6 +18,7 @@ from text.common.formSelfEmployedCardData import FormSelfEmployedCardData
 from text.common.formWallet import FormWallet
 from text.fuction.function import TextFunc
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -70,7 +70,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePersonalData(language=data.get('lang'))
         form = FormSelfEmployedCardData(data=data.get("selfEmployedCard"), language=data.get('lang'), email=data.get("email"))
         return Lang, inline, form
@@ -86,7 +86,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
     async def menu_fio(self, call: types.CallbackQuery, state: FSMContext):
         await self.fio_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -101,7 +101,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
     async def menu_number(self, call: types.CallbackQuery, state: FSMContext):
         await self.number_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -116,7 +116,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
     async def menu_date(self, call: types.CallbackQuery, state: FSMContext):
         await self.date_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -131,7 +131,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
     async def menu_pinfl(self, call: types.CallbackQuery, state: FSMContext):
         await self.pinfl_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -146,7 +146,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
     async def menu_payment_account(self, call: types.CallbackQuery, state: FSMContext):
         await self.paymentAccount_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -161,7 +161,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
     async def menu_bank(self, call: types.CallbackQuery, state: FSMContext):
         await self.bank_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -176,7 +176,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
     async def menu_mfo(self, call: types.CallbackQuery, state: FSMContext):
         await self.mfo_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -191,7 +191,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
     async def menu_phone(self, call: types.CallbackQuery, state: FSMContext):
         await self.phone_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -207,7 +207,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
     async def menu_card_number(self, call: types.CallbackQuery, state: FSMContext):
         await self.cardNumber_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -224,7 +224,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
     async def menu_card_date(self, call: types.CallbackQuery, state: FSMContext):
         await self.cardDate_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -251,7 +251,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_wallet(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePersonalData(language=data.get('lang'))
         form = FormWallet(data=data, language=data.get('lang'))
         return Lang, inline, form
@@ -337,7 +337,7 @@ class WithdrawSelfEmployedCardBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_end(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyUser(language=data.get('lang'))
         form_wallet = FormWallet(cash=data.get('selfEmployedCard').get("cash"), language=data.get('lang'))
         return Lang, reply, form_wallet

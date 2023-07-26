@@ -1,11 +1,10 @@
-import datetime
-from math import ceil
 from string import Template
 
-from datetime_now import dt_now
-from text.language.main import Text_main
-from text.fuction.function import TextFunc
 from aiogram.utils.markdown import hlink
+
+from text.fuction.function import TextFunc
+from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -14,7 +13,7 @@ func = TextFunc()
 class FormCommon:
 
     def __init__(self, language: str):
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
 
     async def menu_rules(self):
         text = Template("$text1 $text2 $text3")

@@ -1,3 +1,4 @@
+import calendar
 import datetime
 
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
@@ -5,8 +6,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from looping import fastapi
 from model.platform import Params
 from text.language.main import Text_main
-import calendar
-
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -67,7 +67,7 @@ class InlineFormOrderAdvertiser():
         self.__calendar_list = calendar_list
         self.__time = time
         self.__date = datetime.datetime.strptime(date, "%d.%m.%Y") if date is not None else None
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
         self.__back = InlineKeyboardButton(text=self.__Lang.buttons.common.back, callback_data="back")
         self.__confirm = InlineKeyboardButton(text=self.__Lang.buttons.common.confirm, callback_data="confirm")
         self.__clean = InlineKeyboardButton(text=self.__Lang.buttons.common.clean, callback_data="clean")
@@ -76,7 +76,7 @@ class InlineFormOrderAdvertiser():
         self.__status_network = True if status_network is not None and status_network != 0 else False
         self.__status_sex = True if status_sex is not None and status_sex != 0 else False
         self.__status_age = True if status_age is not None and status_age != 0 else False
-        self.__status_lang = True if status_lang is not None and status_lang != 0 else False
+        self.__status_Lang: Model = True if status_lang is not None and status_lang != 0 else False
         self.__status_region = True if status_region is not None and status_region != 0 else False
 
     async def menu_back(self):

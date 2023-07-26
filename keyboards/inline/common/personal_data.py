@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -9,7 +9,7 @@ class InlinePersonalData():
 
     def __init__(self, language: str):
         self.__language = language
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
         self.__back = InlineKeyboardButton(text=self.__Lang.buttons.common.back, callback_data="back")
         self.__confirm = InlineKeyboardButton(text=self.__Lang.buttons.common.confirm, callback_data="back")
         self.__accept = InlineKeyboardButton(text=self.__Lang.buttons.common.accept, callback_data="back")

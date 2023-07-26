@@ -21,6 +21,7 @@
 # from text.common.formWallet import FormWallet
 # from text.group.formModeration import FormModerationGroup
 # from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 # from filters.personal_data import IsNumber
 # from text.fuction.function import TextFunc
 # from text.group.formWithdraw import FormWithdrawGroup
@@ -46,7 +47,7 @@
 #     @staticmethod
 #     async def _prepare_cancel(call, data):
 #         blogger_area_id = int(call.data.split("_")[1])
-#         Lang = Txt.language[data.get('lang')]
+#         Lang: Model = Txt.language[data.get('lang')]
 #         inline = InlinePostBlogger(language=data.get('lang'),  blogger_area_id=blogger_area_id)
 #         return Lang, inline
 #

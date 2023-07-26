@@ -1,18 +1,16 @@
 from contextlib import suppress
 from typing import Union
 
-from aiogram import types, Dispatcher
+from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
-from config import bot
+from filters.personal_data import *
 from keyboards.inline.common.personal_data import InlinePersonalData
 from keyboards.reply.common.user import ReplyUser
 from looping import fastapi
 from text.common.formIndividualData import FormIndividualData
-from text.language.main import Text_main
-from filters.personal_data import IsTitle, IsLegalAddress, IsPaymentAccount, IsBank, IsMfo, IsPhone, IsPinfl
 from text.fuction.function import TextFunc
 
 Txt = Text_main()
@@ -60,7 +58,7 @@ class FirstIndividualBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePersonalData(language=data.get('lang'))
         form = FormIndividualData(data=data.get("individual"), language=data.get('lang'), email=data.get("email"))
         return  Lang, inline, form
@@ -77,7 +75,7 @@ class FirstIndividualBlogger(StatesGroup):
     async def menu_title(self, call: types.CallbackQuery, state: FSMContext):
         await self.title_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -94,7 +92,7 @@ class FirstIndividualBlogger(StatesGroup):
     async def menu_legal_address(self, call: types.CallbackQuery, state: FSMContext):
         await self.legalAddress_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -111,7 +109,7 @@ class FirstIndividualBlogger(StatesGroup):
     async def menu_pinfl(self, call: types.CallbackQuery, state: FSMContext):
         await self.pinfl_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -128,7 +126,7 @@ class FirstIndividualBlogger(StatesGroup):
     async def menu_payment_account(self, call: types.CallbackQuery, state: FSMContext):
         await self.paymentAccount_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -145,7 +143,7 @@ class FirstIndividualBlogger(StatesGroup):
     async def menu_bank(self, call: types.CallbackQuery, state: FSMContext):
         await self.bank_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -162,7 +160,7 @@ class FirstIndividualBlogger(StatesGroup):
     async def menu_mfo(self, call: types.CallbackQuery, state: FSMContext):
         await self.mfo_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -179,7 +177,7 @@ class FirstIndividualBlogger(StatesGroup):
     async def menu_phone(self, call: types.CallbackQuery, state: FSMContext):
         await self.phone_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -195,13 +193,12 @@ class FirstIndividualBlogger(StatesGroup):
     # menu_end
     async def menu_end(self, call: types.CallbackQuery, state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             if await self._check_data(call, data):
                 await state.set_state("MenuBlogger:menuBlogger_level1")
 
     @staticmethod
     async def _prepare_end(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyUser(language=data.get('lang'))
         return Lang, reply
 

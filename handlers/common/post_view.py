@@ -1,10 +1,10 @@
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
+from aiogram.types.input_file import InputFile
 from aiogram.utils.exceptions import WrongFileIdentifier
 
 from config import bot
-from aiogram.types.input_file import InputFile
 from keyboards.inline.common.post_view import InlinePostView
 from looping import fastapi
 from text.fuction.function import TextFunc
@@ -23,7 +23,6 @@ class PostView(StatesGroup):
 
     # menu check post
     async def menu_check_post(self, call: types.CallbackQuery, state: FSMContext):
-        print(2, call.data)
         await call.answer()
         async with state.proxy() as data:
             await self._send_post(call, data)

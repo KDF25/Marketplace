@@ -6,6 +6,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from looping import fastapi
 from model.platform import Params
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -37,7 +38,7 @@ class InlinePlatformBlogger():
         self.__siteRequest = siteRequest
         self.__date = datetime.datetime.strptime(date, "%d.%m.%Y") if date is not None else None
         self.__calendar_list = calendar_list
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
         self.__back = InlineKeyboardButton(text=self.__Lang.buttons.common.back, callback_data="back")
         self.__confirm = InlineKeyboardButton(text=self.__Lang.buttons.common.confirm, callback_data="confirm")
 

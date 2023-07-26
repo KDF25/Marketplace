@@ -1,6 +1,7 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -10,7 +11,7 @@ class InlineGroupUser():
     def __init__(self, language: str, enter_id: int = None):
         self.__language = language
         self.__enter_id = enter_id
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
 
     async def menu_withdraw_back(self):
         markup = InlineKeyboardMarkup(row_width=1)

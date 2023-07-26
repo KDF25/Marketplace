@@ -2,22 +2,20 @@ from contextlib import suppress
 from random import randint
 from typing import Union
 
-from aiogram import types, Dispatcher
+from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
-from config import bot
+from filters.platform import *
 from handlers.group.send_moderation import SendModeration
-from keyboards.inline.common.personal_data import InlinePersonalData
 from keyboards.inline.blogger.platform import InlinePlatformBlogger
+from keyboards.inline.common.personal_data import InlinePersonalData
 from keyboards.reply.common.user import ReplyUser
-from looping import fastapi, pg
+from looping import fastapi
 from model.platform import Params, Values, Validate
 from text.blogger.formPlatform import FormPlatform
 from text.common.formPersonalData import FormPersonalData
-from text.language.main import Text_main
-from filters.platform import IsTitle, IsDescription, IsPrice, LenSymbol, IsInstagram
 from text.fuction.decoding import Decoding
 from text.fuction.function import TextFunc
 
@@ -158,7 +156,7 @@ class FirstPlatformBlogger(StatesGroup):
     @staticmethod
     async def _prepare(data):
         reply = ReplyUser(language=data.get('lang'))
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'), token=data.get("token"))
         return reply, Lang, inline
 
@@ -221,7 +219,7 @@ class FirstPlatformBlogger(StatesGroup):
         json = Validate(type=data.get("area").get("platform_id"), url=data.get("area").get("url"),
                         code=data.get("code"))
         status = await fastapi.verify_channel(json=json, token=data.get("token"))
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         status = 200
         if status == 200:
             await message.answer(show_alert=True, text=Lang.alert.blogger.telegram_success)
@@ -233,7 +231,7 @@ class FirstPlatformBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_category(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'), page=data.get("area").get("category").get("page"),
                                        category=data.get("area").get("category"))
         return Lang, inline
@@ -290,7 +288,7 @@ class FirstPlatformBlogger(StatesGroup):
 
     async def _prepare_lang(self, data):
         await self._get_all_lang(data)
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'), platform_lang=data.get("area").get("platformLang"))
         return Lang, inline
 
@@ -321,7 +319,7 @@ class FirstPlatformBlogger(StatesGroup):
 
     async def _prepare_region(self, data):
         await self._get_all_regions(data)
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'), regions=data.get("area").get("regions"),
                                        token=data.get("token"))
         return Lang, inline
@@ -410,7 +408,7 @@ class FirstPlatformBlogger(StatesGroup):
 
     async def _prepare_age(self, data):
         await self._get_all_ages(data)
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'), age=data.get("area").get("age"))
         return Lang, inline
 
@@ -461,7 +459,7 @@ class FirstPlatformBlogger(StatesGroup):
 
     async def _prepare_format(self, data):
         await self._get_all_formats(data)
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePlatformBlogger(language=data.get('lang'), formats=data.get("area").get("accommodation"))
         reply = ReplyUser(language=data.get('lang'))
         form = FormPlatform(language=data.get('lang'), data=data.get('area').get("accommodation"))
@@ -470,7 +468,7 @@ class FirstPlatformBlogger(StatesGroup):
     # check count of ages
     async def _check_age(self, message, data):
         if len(data.get("area").get("age", {}).get("id", [])) == 0:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             await message.answer(text=Lang.alert.blogger.age, show_alert=True)
         else:
             await self._format(message, data)
@@ -574,7 +572,7 @@ class FirstPlatformBlogger(StatesGroup):
     @staticmethod
     async def _prepare_check_platform(data):
         inline = InlinePlatformBlogger(language=data.get('lang'))
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         form = FormPlatform(data=data.get("area"), language=data.get('lang'))
         reply = ReplyUser(language=data.get('lang'))
         return inline, Lang, form, reply
@@ -607,7 +605,7 @@ class FirstPlatformBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_end(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePersonalData(language=data.get('lang'))
         form_platform = FormPersonalData(data=data)
         reply = ReplyUser(language=data.get('lang'))
@@ -690,6 +688,9 @@ class FirstPlatformBlogger(StatesGroup):
         dp.register_callback_query_handler(self.menu_end, text="alright",                                               state=self.firstPlatform_level13)
 
         dp.register_callback_query_handler(self.menu_add_data, text="addData",                                          state=self.firstPlatform_level14)
-        dp.register_callback_query_handler(self.menu_add_data, text="back",                                             state=["FirstSelfEmployedBlogger:firstData_level1", "FirstEntityBlogger:firstData_level1"])
+        dp.register_callback_query_handler(self.menu_add_data, text="back",                                             state=["FirstSelfEmployedBlogger:firstData_level1",
+                                                                                                                               "FirstEntityBlogger:firstData_level1",
+                                                                                                                               "FirstSelfEmployedAccountBlogger:firstData_level1",
+                                                                                                                               "FirstSelfEmployedCardBlogger:firstData_level1"])
 
 

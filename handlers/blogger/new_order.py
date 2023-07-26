@@ -1,31 +1,19 @@
 from contextlib import suppress
-from typing import Union
 
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters import IsReplyFilter
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted, \
-    MessageToEditNotFound, BotBlocked
+from aiogram.utils.exceptions import *
 
 from config import bot
-from filters.admin import IsAdmin
 from filters.form_order import IsPost
-from handlers.blogger.all_orders.send_advertiser import SendMessageAdvertiser
 from keyboards.inline.blogger.newPost import InlinePostBlogger
-from keyboards.inline.common.wallet import InlineWalletUser
-from keyboards.inline.group.user import InlineGroupUser
-from keyboards.reply.common.user import ReplyUser
 from looping import fastapi, pg
 from model.all_orders import PostModel
-from model.moderation import ModerationModel
 from text.blogger.formNewOrder import FormNewOrder
-from text.common.formWallet import FormWallet
-from text.group.formModeration import FormModerationGroup
-from text.language.main import Text_main
-from filters.personal_data import IsNumber
 from text.fuction.function import TextFunc
-from text.group.formWithdraw import FormWithdrawGroup
+from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -38,7 +26,6 @@ class NewPostBlogger(StatesGroup):
 
     # menu project accept
     async def menu_project_accept(self, call: types.CallbackQuery, state: FSMContext):
-        print(2, call.data)
         async with state.proxy() as data:
             status, json = await self._post_accept(call, data)
             await self._check_accept(call, data, status, json)
@@ -62,7 +49,7 @@ class NewPostBlogger(StatesGroup):
     @staticmethod
     async def _prepare_blogger(call, data, json):
         blogger_area_id = int(call.data.split("_")[1])
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePostBlogger(language=data.get('lang'),  blogger_area_id=blogger_area_id,
                                    client_id=json.get("advertiser_id"), order_id=json.get("order_id"))
         return Lang, inline
@@ -81,7 +68,6 @@ class NewPostBlogger(StatesGroup):
     @staticmethod
     async def _user_accept(json):
         users = await pg.select_users(client_id=json.get("advertiser_id"))
-
         for user_id in users:
             try:
                 lang_user = await pg.select_language(user_id=user_id[0])
@@ -99,7 +85,7 @@ class NewPostBlogger(StatesGroup):
     @staticmethod
     async def _prepare_cancel(call, data):
         blogger_area_id = int(call.data.split("_")[1])
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePostBlogger(language=data.get('lang'),  blogger_area_id=blogger_area_id)
         return Lang, inline
 
@@ -192,7 +178,7 @@ class NewPostBlogger(StatesGroup):
     async def _check_date(self, call, data):
         json = PostModel(blogger_area_id=data.get("blogger_area_id"))
         status, json = await fastapi.send_post(json=json, token=data.get("token"))
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         if status == 200:
             await self.post_level1.set()
             await self._post_post(call, Lang)
@@ -217,7 +203,7 @@ class NewPostBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_check_post(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePostBlogger(language=data.get('lang'),  blogger_area_id=data.get('blogger_area_id'))
         return Lang, inline
 

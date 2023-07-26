@@ -5,7 +5,7 @@ from typing import Union
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
 from config import bot
 from filters.registration import IsEmail, IsCode, IsPassword, HaveAccount, IsExist
@@ -15,6 +15,7 @@ from keyboards.reply.common.user import ReplyUser
 from looping import fastapi, pg
 from text.common.formExist import FormExist
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 from model.user import Code, User
 
 Txt = Text_main()
@@ -29,7 +30,7 @@ class ExistAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlineRegistration(language=data.get('lang'))
         return Lang, inline
         
@@ -147,7 +148,7 @@ class ExistAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare_menu(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyUser(language=data.get('lang'))
         return Lang, reply
 

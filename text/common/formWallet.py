@@ -3,8 +3,9 @@ from string import Template
 
 from aiogram.utils.markdown import hlink
 
-from text.language.main import Text_main
 from text.fuction.function import TextFunc
+from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -17,7 +18,7 @@ class FormWallet:
         self.__data = data
         self.__cash = cash
         self.__payment = payment
-        self.__Lang = Txt.language[language]
+        self.__Lang: Model = Txt.language[language]
 
     async def menu_payment_start(self):
         text = Template("<b>$cash:</b> $cash_payment $sum $nds\n\n"

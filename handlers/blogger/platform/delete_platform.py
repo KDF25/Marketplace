@@ -3,7 +3,7 @@ from contextlib import suppress
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, BotBlocked
+from aiogram.utils.exceptions import *
 
 from config import bot
 from keyboards.inline.blogger.platform import InlinePlatformBlogger
@@ -11,6 +11,7 @@ from looping import fastapi, pg
 from text.blogger.formNewOrder import FormNewOrder
 from text.blogger.formPlatform import FormPlatform
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -22,7 +23,7 @@ class DeletePlatformBlogger(StatesGroup):
     async def menu_delete(self, call: types.CallbackQuery, state: FSMContext):
         await self.deletePlatform_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePlatformBlogger(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()

@@ -1,20 +1,17 @@
 import asyncio
 from contextlib import suppress
 
-from aiogram import types, Dispatcher
+from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
-from config import bot
+from filters.registration import *
 from keyboards.inline.blogger.platform import InlinePlatformBlogger
 from keyboards.inline.common.registration import InlineRegistration
-from looping import pg, fastapi
+from model.user import User, Code
 from text.common.formCommon import FormCommon
 from text.common.formRegistration import FormRegistration
-from text.language.main import Text_main
-from model.user import User, Code
-from filters.registration import IsEmail, IsCode, IsPassword, IsNew
 
 Txt = Text_main()
 
@@ -41,7 +38,7 @@ class RegistrationBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlineRegistration(language=data.get('lang'))
         return Lang, inline
 
@@ -156,7 +153,7 @@ class RegistrationBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_rec(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline_rec = InlinePlatformBlogger(language=data.get('lang'))
         return Lang, inline_rec
 

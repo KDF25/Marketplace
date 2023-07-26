@@ -7,6 +7,7 @@ import typing
 
 from looping import pg
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 
@@ -20,8 +21,8 @@ class IsTelegram(BoundFilter):
             return True
         else:
             lang = await pg.select_language(user_id=message.from_user.id)
-            Text_lang = Txt.language[lang]
-            await bot.send_message(chat_id=message.from_user.id, text=Text_lang.alert.common.invalidUrl)
+            Lang: Model = Txt.language[lang]
+            await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.common.invalidUrl)
 
 
 
@@ -32,8 +33,8 @@ class IsTitle(BoundFilter):
             return True
         else:
             lang = await pg.select_language(user_id=message.from_user.id)
-            Text_lang = Txt.language[lang]
-            await bot.send_message(chat_id=message.from_user.id, text=Text_lang.alert.common.lengthTitle)
+            Lang: Model = Txt.language[lang]
+            await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.common.lengthTitle)
 
 
 class IsInstagram(BoundFilter):
@@ -43,8 +44,8 @@ class IsInstagram(BoundFilter):
             return True
         else:
             lang = await pg.select_language(user_id=call.from_user.id)
-            Text_lang = Txt.language[lang]
-            await call.answer(text=Text_lang.alert.blogger.instagram, show_alert=True)
+            Lang: Model = Txt.language[lang]
+            await call.answer(text=Lang.alert.blogger.instagram, show_alert=True)
 
 
 class IsDescription(BoundFilter):
@@ -53,8 +54,8 @@ class IsDescription(BoundFilter):
             return True
         else:
             lang = await pg.select_language(user_id=message.from_user.id)
-            Text_lang = Txt.language[lang]
-            await bot.send_message(chat_id=message.from_user.id, text=Text_lang.alert.common.lengthDescription)
+            Lang: Model = Txt.language[lang]
+            await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.common.lengthDescription)
 
 
 class IsPrice(BoundFilter):
@@ -66,12 +67,12 @@ class IsPrice(BoundFilter):
                 return True
             else:
                 lang = await pg.select_language(user_id=message.from_user.id)
-                Text_lang = Txt.language[lang]
-                await bot.send_message(chat_id=message.from_user.id, text=Text_lang.alert.blogger.minPrice)
+                Lang: Model = Txt.language[lang]
+                await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.blogger.minPrice)
         else:
             lang = await pg.select_language(user_id=message.from_user.id)
-            Text_lang = Txt.language[lang]
-            await bot.send_message(chat_id=message.from_user.id, text=Text_lang.alert.common.lengthPrice)
+            Lang: Model = Txt.language[lang]
+            await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.common.lengthPrice)
 
 
 
@@ -83,5 +84,5 @@ class LenSymbol(BoundFilter):
             return True
         else:
             lang = await pg.select_language(user_id=message.from_user.id)
-            Text_lang = Txt.language[lang]
-            await bot.send_message(chat_id=message.from_user.id, text=Text_lang.alert.common.nonFormat)
+            Lang: Model = Txt.language[lang]
+            await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.common.nonFormat)

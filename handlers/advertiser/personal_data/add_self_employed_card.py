@@ -1,20 +1,16 @@
 from contextlib import suppress
 from typing import Union
 
-from aiogram import types, Dispatcher
+from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, \
-    MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
-from config import bot
+from filters.personal_data import *
 from keyboards.inline.common.personal_data import InlinePersonalData
 from keyboards.reply.common.user import ReplyUser
 from looping import fastapi
 from text.common.formSelfEmployedCardData import FormSelfEmployedCardData
-from text.language.main import Text_main
-from filters.personal_data import IsFio, IsNumber, IsDate, IsPaymentAccount, IsBank, IsMfo, IsPhone, IsPinfl, \
-    IsCardDate, IsCardNumber
 from text.fuction.function import TextFunc
 
 Txt = Text_main()
@@ -40,7 +36,6 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     async def menu_add_data(self, call: types.CallbackQuery, state: FSMContext):
         await self.addData_level1.set()
         async with state.proxy() as data:
-            print(data)
             await self._callback_data(data)
             inline, reply, Lang, form = await self._prepare(data)
             await self._add_data(call, data, inline, reply, Lang, form)
@@ -69,7 +64,6 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     # menu_change_data
     async def menu_change_data(self, message: Union[types.Message, types.CallbackQuery], state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             await self._change_data(message, data)
 
     async def _change_data(self, message, data):
@@ -80,7 +74,7 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     @staticmethod
     async def _prepare(data):
         reply = ReplyUser(language=data.get('lang'))
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePersonalData(language=data.get('lang'))
         form = FormSelfEmployedCardData(data=data.get("new_selfEmployedCard"), language=data.get('lang'),
                                     email=data.get("email"))
@@ -98,8 +92,7 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     async def menu_fio(self, call: types.CallbackQuery, state: FSMContext):
         await self.fio_level1.set()
         async with state.proxy() as data:
-            print(data)
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -109,7 +102,6 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     # menu_get_fio
     async def menu_get_fio(self, message: types.Message, state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             data.get("new_selfEmployedCard")["fio"] = message.text
             await self._change_data(message, data)
 
@@ -117,8 +109,7 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     async def menu_number(self, call: types.CallbackQuery, state: FSMContext):
         await self.number_level1.set()
         async with state.proxy() as data:
-            print(data)
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -128,7 +119,6 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     # menu_get_number
     async def menu_get_number(self, message: types.Message, state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             data.get("new_selfEmployedCard")["number"] = message.text
             await self._change_data(message, data)
 
@@ -136,8 +126,7 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     async def menu_date(self, call: types.CallbackQuery, state: FSMContext):
         await self.date_level1.set()
         async with state.proxy() as data:
-            print(data)
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -147,7 +136,6 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     # menu_get_date
     async def menu_get_date(self, message: types.Message, state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             data.get("new_selfEmployedCard")["date"] = message.text
             await self._change_data(message, data)
 
@@ -155,8 +143,7 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     async def menu_pinfl(self, call: types.CallbackQuery, state: FSMContext):
         await self.pinfl_level1.set()
         async with state.proxy() as data:
-            print(data)
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -166,7 +153,6 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     # menu_get_pinfl
     async def menu_get_pinfl(self, message: types.Message, state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             data.get("new_selfEmployedCard")["pinfl"] = message.text
             await self._change_data(message, data)
 
@@ -174,8 +160,7 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     async def menu_payment_account(self, call: types.CallbackQuery, state: FSMContext):
         await self.paymentAccount_level1.set()
         async with state.proxy() as data:
-            print(data)
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -185,7 +170,6 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     # menu_get_payment_account
     async def menu_get_payment_account(self, message: types.Message, state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             data.get("new_selfEmployedCard")["paymentAccount"] = message.text
             await self._change_data(message, data)
 
@@ -193,8 +177,7 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     async def menu_bank(self, call: types.CallbackQuery, state: FSMContext):
         await self.bank_level1.set()
         async with state.proxy() as data:
-            print(data)
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -204,7 +187,6 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     # menu_get_bank
     async def menu_get_bank(self, message: types.Message, state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             data.get("new_selfEmployedCard")["bank"] = message.text
             await self._change_data(message, data)
 
@@ -212,8 +194,7 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     async def menu_mfo(self, call: types.CallbackQuery, state: FSMContext):
         await self.mfo_level1.set()
         async with state.proxy() as data:
-            print(data)
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -223,7 +204,6 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     # menu_get_mfo
     async def menu_get_mfo(self, message: types.Message, state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             data.get("new_selfEmployedCard")["mfo"] = message.text
             await self._change_data(message, data)
 
@@ -231,8 +211,7 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     async def menu_phone(self, call: types.CallbackQuery, state: FSMContext):
         await self.phone_level1.set()
         async with state.proxy() as data:
-            print(data)
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -242,7 +221,6 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     # menu_get_phone
     async def menu_get_phone(self, message: types.Message, state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             data.get("new_selfEmployedCard")["phone"] = message.text
             await self._change_data(message, data)
 
@@ -250,8 +228,7 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     async def menu_card_number(self, call: types.CallbackQuery, state: FSMContext):
         await self.cardNumber_level1.set()
         async with state.proxy() as data:
-            print(data)
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -261,7 +238,6 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     # menu_get_card_number
     async def menu_get_card_number(self,  message: types.Message,  state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             data.get("new_selfEmployedCard")["cardNumber"] = message.text
             await self._change_data(message, data)
 
@@ -269,8 +245,7 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     async def menu_card_date(self, call: types.CallbackQuery, state: FSMContext):
         await self.cardDate_level1.set()
         async with state.proxy() as data:
-            print(data)
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -280,20 +255,18 @@ class AddDataSelfEmployedCardAdvertiser(StatesGroup):
     # menu_get_card_number
     async def menu_get_card_date(self,  message: types.Message,  state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             data.get("new_selfEmployedCard")["cardDate"] = message.text
             await self._change_data(message, data)
 
     # menu_end
     async def menu_end(self, call: types.CallbackQuery, state: FSMContext):
         async with state.proxy() as data:
-            print(data)
             if await self._check_data(call, data):
                 await state.set_state("MenuAdvertiser:menuAdvertiser_level1")
 
     @staticmethod
     async def _prepare_end(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyUser(language=data.get('lang'))
         return Lang, reply
 

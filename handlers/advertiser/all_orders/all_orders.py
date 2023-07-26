@@ -5,13 +5,11 @@ from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import IsReplyFilter
 from aiogram.dispatcher.filters.state import StatesGroup, State
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageIdentifierNotSpecified, \
-    MessageToDeleteNotFound, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
 from config import bot
 from handlers.advertiser.all_orders.send_blogger import SendMessageBlogger
 from keyboards.inline.advertiser.all_order import InlineAllOrderAdvertiser
-from keyboards.inline.advertiser.form_order import InlineFormOrderAdvertiser
 from keyboards.reply.advertiser.advertiser import ReplyAdvertiser
 from looping import fastapi
 from model.all_orders import AllOrder
@@ -19,9 +17,9 @@ from model.basket import Basket
 from model.form_order import OtherModel, ChannelListModel
 from model.platform import GetPlatform
 from text.advertiser.formAllOrder import FormAllOrderAdvertiser
-from text.advertiser.formOrder import FormOrder
 from text.fuction.function import TextFunc
 from text.language.main import Text_main
+from text.language.ru import Ru_language as Model
 
 Txt = Text_main()
 func = TextFunc()
@@ -60,7 +58,7 @@ class AllOrderAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         reply = ReplyAdvertiser(language=data.get('lang'))
         inline = InlineAllOrderAdvertiser(all_orders=data.get("allOrder").get("allOrder"), language=data.get('lang'))
         form = FormAllOrderAdvertiser(data=data.get("allOrder").get("allOrder"), language=data.get("lang"))
@@ -109,7 +107,7 @@ class AllOrderAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare_orders(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlineAllOrderAdvertiser(orders=data.get("allOrder").get("orders"), language=data.get('lang'),
                                           siteRequest=data.get('siteRequest'))
         return Lang, inline
@@ -222,7 +220,7 @@ class AllOrderAdvertiser(StatesGroup):
     @staticmethod
     async def menu_zero_count(call: types.CallbackQuery, state: FSMContext):
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             await call.answer(show_alert=True, text=Lang.alert.common.zeroCount)
 
     # menu send blogger
@@ -240,7 +238,7 @@ class AllOrderAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare_send_blogger(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlineAllOrderAdvertiser(orders=data.get("allOrder").get("orders"), language=data.get('lang'),
                                           channels=data.get("allOrder").get("channels"))
         return Lang, inline
@@ -270,7 +268,6 @@ class AllOrderAdvertiser(StatesGroup):
 
     # menu send message
     async def menu_send_message(self, call: types.CallbackQuery, state: FSMContext):
-        print(2)
         async with state.proxy() as data:
             data["message_id"] = call.message.message_id
             await self._check_channel_list(call, data)
@@ -285,7 +282,7 @@ class AllOrderAdvertiser(StatesGroup):
 
     @staticmethod
     async def _prepare_send_message(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlineAllOrderAdvertiser(orders=data.get("allOrder").get("orders"), language=data.get('lang'),
                                           channels=data.get("allOrder").get("channels"))
         return Lang, inline
@@ -304,7 +301,7 @@ class AllOrderAdvertiser(StatesGroup):
             json = await self._get_list_client_id(data)
             send = SendMessageBlogger(data=json, text=message.html_text, token=data.get("token"))
             await send.send_blogger()
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             with suppress(MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted):
                 await bot.delete_message(chat_id=message.from_user.id, message_id=data.get('message_id'))
             await bot.send_message(chat_id=message.from_user.id, text=Lang.newOrder.advertiser.end)

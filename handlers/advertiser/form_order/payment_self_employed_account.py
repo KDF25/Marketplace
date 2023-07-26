@@ -1,12 +1,12 @@
 from contextlib import suppress
 from typing import Union
 
-from aiogram import types, Dispatcher
+from aiogram import Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.utils.exceptions import MessageNotModified, MessageToEditNotFound, MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted
+from aiogram.utils.exceptions import *
 
-from config import bot
+from filters.personal_data import *
 from handlers.advertiser.form_order.send_blogger import SendBlogger
 from keyboards.inline.common.personal_data import InlinePersonalData
 from keyboards.inline.common.wallet import InlineWalletUser
@@ -15,8 +15,6 @@ from looping import fastapi
 from model.wallet import WalletModel
 from text.common.formSelfEmployedAccountData import FormSelfEmployedAccountData
 from text.common.formWallet import FormWallet
-from text.language.main import Text_main
-from filters.personal_data import IsFio, IsNumber, IsDate, IsPinfl, IsPaymentAccount, IsBank, IsMfo, IsPhone
 from text.fuction.function import TextFunc
 
 Txt = Text_main()
@@ -48,7 +46,6 @@ class FormOrderPaymentSelfEmployedAccount(StatesGroup):
             await bot.edit_message_text(chat_id=call.from_user.id, text=await form.menu_personal_data(),
                                         message_id=call.message.message_id,
                                         reply_markup=await inline.menu_first_data())
-            # print(data)
 
     @staticmethod
     async def _callback_data(data):
@@ -62,14 +59,10 @@ class FormOrderPaymentSelfEmployedAccount(StatesGroup):
         async with state.proxy() as data:
             Lang, inline, form = await self._prepare(data=data)
             await self._change(message=message, inline=inline, form=form, data=data)
-            # if isinstance(message, types.Message):
-            #     await self._change(message=message, inline=inline, form=form, data=data)
-            # elif isinstance(message, types.CallbackQuery):
-            #     await self._change_back()
 
     @staticmethod
     async def _prepare(data):
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
         inline = InlinePersonalData(language=data.get('lang'))
         form = FormSelfEmployedAccountData(data=data.get("selfEmployedAccount"), language=data.get('lang'),
                                     email=data.get("email"))
@@ -86,7 +79,7 @@ class FormOrderPaymentSelfEmployedAccount(StatesGroup):
     async def menu_fio(self, call: types.CallbackQuery, state: FSMContext):
         await self.fio_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -103,7 +96,7 @@ class FormOrderPaymentSelfEmployedAccount(StatesGroup):
     async def menu_number(self, call: types.CallbackQuery, state: FSMContext):
         await self.number_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -120,7 +113,7 @@ class FormOrderPaymentSelfEmployedAccount(StatesGroup):
     async def menu_date(self, call: types.CallbackQuery, state: FSMContext):
         await self.date_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -137,7 +130,7 @@ class FormOrderPaymentSelfEmployedAccount(StatesGroup):
     async def menu_pinfl(self, call: types.CallbackQuery, state: FSMContext):
         await self.pinfl_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -154,7 +147,7 @@ class FormOrderPaymentSelfEmployedAccount(StatesGroup):
     async def menu_payment_account(self, call: types.CallbackQuery, state: FSMContext):
         await self.paymentAccount_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -172,7 +165,7 @@ class FormOrderPaymentSelfEmployedAccount(StatesGroup):
     async def menu_bank(self, call: types.CallbackQuery, state: FSMContext):
         await self.bank_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -189,7 +182,7 @@ class FormOrderPaymentSelfEmployedAccount(StatesGroup):
     async def menu_mfo(self, call: types.CallbackQuery, state: FSMContext):
         await self.mfo_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -206,7 +199,7 @@ class FormOrderPaymentSelfEmployedAccount(StatesGroup):
     async def menu_phone(self, call: types.CallbackQuery, state: FSMContext):
         await self.phone_level1.set()
         async with state.proxy() as data:
-            Lang = Txt.language[data.get('lang')]
+            Lang: Model = Txt.language[data.get('lang')]
             inline = InlinePersonalData(language=data.get('lang'))
         with suppress(MessageNotModified, MessageToEditNotFound):
             await call.answer()
@@ -242,13 +235,13 @@ class FormOrderPaymentSelfEmployedAccount(StatesGroup):
     async def _prepare_wallet(data):
         reply = ReplyUser(language=data.get('lang'))
         inline = InlineWalletUser(language=data.get('lang'))
-        Lang = Txt.language[data.get('lang')]
+        Lang: Model = Txt.language[data.get('lang')]
 
         return reply, inline, Lang
 
     @staticmethod
     async def _success_payment(call, data, reply):
-        Lang = Txt.language[data.get("lang")]
+        Lang: Model = Txt.language[data.get("lang")]
         await call.answer(show_alert=True, text=Lang.alert.advertiser.startCampaign)
         with suppress(MessageToDeleteNotFound, MessageIdentifierNotSpecified, MessageCantBeDeleted):
             await bot.delete_message(chat_id=call.from_user.id, message_id=data.get('message_id'))
