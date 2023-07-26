@@ -4,7 +4,6 @@ from aiogram import types
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from attrs import define, field
 from config_telegram import *
 
 storage = RedisStorage2()
