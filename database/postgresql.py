@@ -2,7 +2,7 @@ import asyncio
 
 import asyncpg
 
-import config
+from config_telegram import *
 from datetime_now import dt_now
 
 
@@ -10,10 +10,10 @@ class Database:
     def __init__(self, loop: asyncio.AbstractEventLoop):
         self.pool: asyncio.pool.Pool = loop.run_until_complete(
             asyncpg.create_pool(
-                database="Marketplace",
-                user=config.PGUSER,
-                password=config.PASSWORD,
-                host=config.ip,
+                database=DATABASE,
+                user=PGUSER,
+                password=PASSWORD,
+                host=ip,
             )
         )
 

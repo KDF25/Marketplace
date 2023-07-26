@@ -1,7 +1,8 @@
 from aiogram.utils import exceptions
 from aiogram import types
 from aiogram import Dispatcher
-from config import bot, chat_id_our as exceptions_group
+from config import bot
+from config_telegram import exceptions_group
 
 
 async def errors_handler(update: types.Update, exception: Exception):
