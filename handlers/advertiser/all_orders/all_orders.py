@@ -176,6 +176,7 @@ class AllOrderAdvertiser(StatesGroup):
     async def menu_completed_orders(self, call: types.CallbackQuery, state: FSMContext):
         await self.completed_level1.set()
         async with state.proxy() as data:
+            await self._data_orders(data=data)
             await self._get_completed_orders(data)
             Lang, inline = await self._prepare_orders(data)
             await self._completed_orders(call, Lang, inline)
