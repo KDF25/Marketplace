@@ -6,8 +6,7 @@ from aiohttp import FormData, ClientSession, ClientResponse, TCPConnector
 
 import config
 
-domain = "https://laappetit.uz"
-# domain = "http://185.74.5.147:8000"
+domain = config.domain
 telegram_url = f"https://api.telegram.org/file/bot{config.token}/"
 
 

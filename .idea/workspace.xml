@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d858cd9-24da-46e1-8d11-c1aef16b0fb6" name="Changes" comment="add languages and full refactor">
-      <change afterPath="$PROJECT_DIR$/config_telegram.py" afterDir="false" />
+    <list default="true" id="5d858cd9-24da-46e1-8d11-c1aef16b0fb6" name="Changes" comment="rework active order advertiser">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catching_errors/catch_errors.py" beforeDir="false" afterPath="$PROJECT_DIR$/catching_errors/catch_errors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/postgresql.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/postgresql.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,12 +122,35 @@
       <option name="project" value="LOCAL" />
       <updated>1690353954769</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add config telegram">
+      <created>1690365581213</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1690365581213</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add config telegram">
+      <created>1690365643126</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1690365643126</updated>
+    </task>
+    <task id="LOCAL-00004" summary="rework active order advertiser">
+      <created>1690624318122</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1690624318122</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add languages and full refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="add languages and full refactor" />
+    <MESSAGE value="add config telegram" />
+    <MESSAGE value="rework active order advertiser" />
+    <option name="LAST_COMMIT_MESSAGE" value="rework active order advertiser" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
