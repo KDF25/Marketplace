@@ -1,4 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, WebAppInfo
+
+from config_telegram import webApp_domain
 from text.language.main import Text_main
 from text.language.ru import Ru_language as Model
 
@@ -42,6 +44,6 @@ class ReplyAdvertiser:
         return markup
 
     async def _web_app(self, login: str, password: str, new_order: bool = False) -> str:
-        return f'https://laappetit.uz?login={login}&password={password}&new_order={new_order}&language={self.__language}'
+        return f'https://{webApp_domain}?login={login}&password={password}&new_order={new_order}&language={self.__language}'
 
 

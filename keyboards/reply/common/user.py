@@ -69,7 +69,7 @@ class ReplyUser:
         return markup
 
     async def _web_app(self, login: str, password: str, new_order: bool = True) -> str:
-        return f'https://laappetit.uz?login={login}&password={password}&new_order={new_order}&language={self.__language}'
+        return f'https://{webApp_domain}?login={login}&password={password}&new_order={new_order}&language={self.__language}'
 
     async def information(self):
         markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)

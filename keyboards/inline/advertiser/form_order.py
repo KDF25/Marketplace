@@ -3,6 +3,7 @@ import datetime
 
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 
+from config_telegram import webApp_domain
 from looping import fastapi
 from model.platform import Params
 from text.language.main import Text_main
@@ -87,7 +88,7 @@ class InlineFormOrderAdvertiser():
     async def menu_back_web_app(self, token: str, user_id: int):
         markup = InlineKeyboardMarkup(row_width=1)
         back = InlineKeyboardMarkup(text=self.__Lang.buttons.common.back,
-                                    web_app=WebAppInfo(url=f'https://laappetit.uz?token={token}&user_id={user_id}'))
+                                    web_app=WebAppInfo(url=f'https://{webApp_domain}?token={token}&user_id={user_id}'))
         markup.add(back)
         return markup
 
@@ -316,7 +317,7 @@ class InlineFormOrderAdvertiser():
     async def menu_basket(self):
         self.__markup = InlineKeyboardMarkup(row_width=1)
         await self._basket()
-        # back = InlineKeyboardMarkup(text=self.__Lang.buttons.common.back, web_app=WebAppInfo(url=f'https://laappetit.uz?token={token}&user_id={user_id}'))
+        # back = InlineKeyboardMarkup(text=self.__Lang.buttons.common.back, web_app=WebAppInfo(url=f'https://{webApp_domain}?token={token}&user_id={user_id}'))
         # self.__markup.add(back)
         return self.__markup
 
