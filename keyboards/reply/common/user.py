@@ -1,5 +1,7 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.types.web_app_info import WebAppInfo
+
+from config_telegram import webApp_domain
 from text.language.main import Text_main
 from text.language.ru import Ru_language as Model
 
