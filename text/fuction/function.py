@@ -64,7 +64,7 @@ class TextFunc:
             value = -1
         elif turn == "next":
             value = 1
-        date = datetime.datetime.strftime(datetime.date.today() + datetime.timedelta(30) * value, "%d.%m.%Y")
+        date = datetime.datetime.strftime(datetime.datetime.strptime(date, "%d.%m.%Y") + datetime.timedelta(30) * value, "%d.%m.%Y")
         return date
 
     async def time(self):

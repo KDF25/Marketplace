@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d858cd9-24da-46e1-8d11-c1aef16b0fb6" name="Changes" comment="rework active order advertiser">
+    <list default="true" id="5d858cd9-24da-46e1-8d11-c1aef16b0fb6" name="Changes" comment="add webApp domain in config (#2)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config_telegram.py" beforeDir="false" afterPath="$PROJECT_DIR$/config_telegram.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/advertiser/form_order/form_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/form_order/form_order.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/fuction/function.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/fuction/function.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,14 +146,38 @@
       <option name="project" value="LOCAL" />
       <updated>1690624318122</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add domain in config">
+      <created>1691598371864</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1691598371864</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add webApp domain in config">
+      <created>1691700554576</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1691700554576</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add webApp domain in config (#2)">
+      <created>1691749473405</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1691749473405</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add languages and full refactor" />
     <MESSAGE value="add config telegram" />
     <MESSAGE value="rework active order advertiser" />
-    <option name="LAST_COMMIT_MESSAGE" value="rework active order advertiser" />
+    <MESSAGE value="add domain in config" />
+    <MESSAGE value="add webApp domain in config" />
+    <MESSAGE value="add webApp domain in config (#2)" />
+    <option name="LAST_COMMIT_MESSAGE" value="add webApp domain in config (#2)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

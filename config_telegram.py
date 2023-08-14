@@ -3,7 +3,7 @@ PGUSER = "postgres"
 PASSWORD = "karimov"
 token = '5369594012:AAEgKivC9l4sqBP_mLF7IMjz1c-9OJnn65w'
 ip = 'localhost'
-domain = "206.189.57.181"
+domain = "https://206.189.57.181"
 webApp_domain = "206.189.57.181"
 
 # admin group

@@ -1298,7 +1298,6 @@ class FormOrderAdvertiser(StatesGroup):
             await self._time_all_exist(data)
             form, inline = await self._prepare_time(data, data.get('formOrder').get('current_datetime')['time'])
             await self._time(call, data, form, inline)
-        print(data)
 
     async def _time_all_exist(self, data):
         for platform in data.get('formOrder').get("basket").get("channels"):
