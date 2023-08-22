@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d858cd9-24da-46e1-8d11-c1aef16b0fb6" name="Changes" comment="add webApp domain in config (#2)">
+    <list default="true" id="5d858cd9-24da-46e1-8d11-c1aef16b0fb6" name="Changes" comment="rework calendar (now switch more than one month) (#1)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config_telegram.py" beforeDir="false" afterPath="$PROJECT_DIR$/config_telegram.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/advertiser/form_order/form_order.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/advertiser/form_order/form_order.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/text/fuction/function.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/fuction/function.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/fastapi.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/fastapi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/filters/platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/filters/platform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/blogger/platform/change_platforn.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/platform/change_platforn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/inline/blogger/platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/blogger/platform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/platform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/language/ru.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/language/ru.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text/language/uzb.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/language/uzb.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691749473405</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="rework calendar (now switch more than one month) (#1)">
+      <created>1691997577003</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1691997577003</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -177,7 +188,8 @@
     <MESSAGE value="add domain in config" />
     <MESSAGE value="add webApp domain in config" />
     <MESSAGE value="add webApp domain in config (#2)" />
-    <option name="LAST_COMMIT_MESSAGE" value="add webApp domain in config (#2)" />
+    <MESSAGE value="rework calendar (now switch more than one month) (#1)" />
+    <option name="LAST_COMMIT_MESSAGE" value="rework calendar (now switch more than one month) (#1)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -189,17 +201,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/text/language/uzb.py</url>
-          <line>628</line>
+          <line>631</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/text/language/uzb.py</url>
-          <line>621</line>
+          <line>624</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/text/language/uzb.py</url>
-          <line>610</line>
+          <line>613</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

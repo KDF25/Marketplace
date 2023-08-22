@@ -411,6 +411,15 @@ class FastApi:
             print(await response.json())
             return await response.json()
 
+    async def update_url(self, params: int, token: dict):
+        headers = await self._token(token=token)
+        connector = TCPConnector(ssl=True, verify_ssl=True)
+        async with ClientSession(base_url=domain, connector=connector, headers=headers) as session:
+            response = await session.put(url="/api/v1/blogger/area/url", json=params)
+            print(response.status, "url")
+            print(await response.json())
+            return await response.json()
+
     ##########################################################################################################
 
     async def get_balance(self, token: dict):

@@ -24,7 +24,8 @@ class InlinePlatformBlogger():
                  token: dict = None,
                  date: str = None,
                  calendar_list: list = None,
-                 siteRequest: dict = None):
+                 siteRequest: dict = None,
+                 channel_type: str = None):
         self.__markup = None
         self.__category = category
         self.__platform = platform
@@ -36,6 +37,7 @@ class InlinePlatformBlogger():
         self.__age = age
         self.__token = token
         self.__siteRequest = siteRequest
+        self.__channel_type = channel_type
         self.__date = datetime.datetime.strptime(date, "%d.%m.%Y") if date is not None else None
         self.__calendar_list = calendar_list
         self.__Lang: Model = Txt.language[language]
@@ -100,10 +102,14 @@ class InlinePlatformBlogger():
 
     async def menu_change(self):
         markup = InlineKeyboardMarkup(row_width=1)
-        b2 = InlineKeyboardButton(text=self.__Lang.buttons.platform.change.description, callback_data="description")
+        b1 = InlineKeyboardButton(text=self.__Lang.buttons.platform.change.description, callback_data="description")
+        markup.add(b1)
+        if self.__channel_type == "telegram":
+            b2 = InlineKeyboardButton(text=self.__Lang.buttons.platform.change.url, callback_data="url")
+            markup.add(b2)
         b3 = InlineKeyboardButton(text=self.__Lang.buttons.platform.change.parameters, callback_data="parameters")
         b4 = InlineKeyboardButton(text=self.__Lang.buttons.platform.change.price, callback_data="price")
-        markup.add(b2, b3, b4, self.__back)
+        markup.add(b3, b4, self.__back)
         return markup
 
     async def menu_parameters(self):

@@ -10,7 +10,7 @@ from config import bot
 from filters.platform import IsDescription, IsPrice
 from keyboards.inline.blogger.platform import InlinePlatformBlogger
 from looping import fastapi
-from model.platform import UpdatePlatform, Params, Values
+from model.platform import UpdatePlatform, Params, Values, Validate
 from text.blogger.formPlatform import FormPlatform
 from text.fuction.decoding import Decoding
 from text.language.main import Text_main
@@ -26,6 +26,7 @@ class ChangePlatformBlogger(StatesGroup):
 
     title_level1 = State()
     description_level1 = State()
+    url_level1 = State()
     lang_level1 = State()
     region_level1 = State()
     sex_level1 = State()
@@ -80,7 +81,7 @@ class ChangePlatformBlogger(StatesGroup):
 
     @staticmethod
     async def _prepare_change(data):
-        inline = InlinePlatformBlogger(language=data.get('lang'))
+        inline = InlinePlatformBlogger(language=data.get('lang'), channel_type=data.get("current_platform").get("platform"))
         form = FormPlatform(data=data.get("current_platform"), language=data.get("lang"))
         return inline, form
 
@@ -129,6 +130,48 @@ class ChangePlatformBlogger(StatesGroup):
                                 description=data.get("current_platform").get('description'))
         await fastapi.update_description(params=params, token=data.get("token"))
 
+    async def menu_url(self, call: types.CallbackQuery, state: FSMContext):
+        await self.url_level1.set()
+        async with state.proxy() as data:
+            Lang, inline = await self._prepare(data)
+        with suppress(MessageNotModified, MessageToEditNotFound):
+            await call.answer()
+            await bot.edit_message_text(chat_id=call.from_user.id, text=Lang.platform.blogger.change.url,
+                                        message_id=call.message.message_id, reply_markup=await inline.menu_back())
+
+    async def menu_get_url(self, message: types.Message, state: FSMContext):
+        async with state.proxy() as data:
+            await self._validate_platform(message, data)
+
+    async def _validate_platform(self, message, data):
+        json = Validate(type=1, url=message.text)
+        status, json = await fastapi.validate_url(token=data.get("token"), json=json)
+        form = FormPlatform(data=json, language=data.get("lang"))
+        Lang: Model = Txt.language[data.get('lang')]
+        if status == 200:
+            await self.changePlatform_level1.set()
+            await self._url(message, data)
+        elif json.get("error") == "already exist area":
+            await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.blogger.platformExist)
+        elif json.get("error") == "Restricted expire through":
+            await bot.send_message(chat_id=message.from_user.id, text=await form.platform_reject())
+        elif json.get("error") == "Banned":
+            await bot.send_message(chat_id=message.from_user.id, text=await form.platform_ban())
+        else:
+            await bot.send_message(chat_id=message.from_user.id, text=Lang.alert.common.nonFormat)
+
+    async def _url(self, message, data):
+        data.get("current_platform")['url'] = message.text
+        inline, form = await self._prepare_change(data)
+        await self._change_back(message, data, form, inline)
+        await self._update_url(data)
+
+    @staticmethod
+    async def _update_url(data):
+        params = UpdatePlatform(area_id=data.get("current_platform").get("id"),
+                                url=data.get("current_platform").get('url'))
+        await fastapi.update_url(params=params, token=data.get("token"))
+
     async def menu_parameters(self,  call: types.CallbackQuery, state: FSMContext):
         await self.changePlatform_level2.set()
         async with state.proxy() as data:
@@ -147,7 +190,6 @@ class ChangePlatformBlogger(StatesGroup):
         async with state.proxy() as data:
             Lang, inline = await self._prepare_lang(data)
             await self._lang(call, Lang, inline)
-            print(data)
 
     async def menu_change_lang(self, call: types.CallbackQuery, state: FSMContext):
         async with state.proxy() as data:
@@ -429,8 +471,10 @@ class ChangePlatformBlogger(StatesGroup):
         dp.register_callback_query_handler(self.menu_change_back, text="back",                                          state=[self.title_level1, self.description_level1])
 
         dp.register_callback_query_handler(self.menu_description, text='description',                                   state=self.changePlatform_level1)
-
         dp.register_message_handler(self.menu_get_description, IsDescription(), content_types='text',                   state=self.description_level1)
+
+        dp.register_callback_query_handler(self.menu_url, text='url',                                                   state=self.changePlatform_level1)
+        dp.register_message_handler(self.menu_get_url, IsDescription(), content_types='text',                           state=self.url_level1)
 
         dp.register_callback_query_handler(self.menu_parameters, text='parameters',                                     state=self.changePlatform_level1)
         dp.register_callback_query_handler(self.menu_parameters, text='back',                                           state=[self.lang_level1,

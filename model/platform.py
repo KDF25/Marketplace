@@ -59,6 +59,7 @@ class UpdatePlatform(TypedDict, total=False):
     area_id: int
     name: str
     description: int
+    url: str
     languages: list
     regions: list
     ages: list

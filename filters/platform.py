@@ -1,10 +1,10 @@
 import re
 import urllib
-from aiogram.dispatcher.filters import Text, BoundFilter
-from config import bot
-from aiogram import types
-import typing
 
+from aiogram import types
+from aiogram.dispatcher.filters import BoundFilter
+
+from config import bot
 from looping import pg
 from text.language.main import Text_main
 from text.language.ru import Ru_language as Model
