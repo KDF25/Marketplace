@@ -89,6 +89,8 @@ class MenuCommon(StatesGroup):
         elif data.get("role") == "advertiser":
             await self._get_token(data=data)
             await self._start_advertiser(message=message, data=data)
+        else:
+            await self._no_name(message=message, data=data)
 
     @staticmethod
     async def _get_token(data):

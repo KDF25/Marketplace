@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d858cd9-24da-46e1-8d11-c1aef16b0fb6" name="Changes" comment="rework calendar (now switch more than one month) (#1)">
+    <list default="true" id="5d858cd9-24da-46e1-8d11-c1aef16b0fb6" name="Changes" comment="add change url function for telegram platform">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/fastapi.py" beforeDir="false" afterPath="$PROJECT_DIR$/database/fastapi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/filters/platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/filters/platform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/blogger/platform/change_platforn.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/blogger/platform/change_platforn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keyboards/inline/blogger/platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/inline/blogger/platform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/platform.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/platform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/text/language/ru.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/language/ru.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/text/language/uzb.py" beforeDir="false" afterPath="$PROJECT_DIR$/text/language/uzb.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691997577003</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add change url function for telegram platform">
+      <created>1692690102013</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1692690102013</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -189,7 +189,8 @@
     <MESSAGE value="add webApp domain in config" />
     <MESSAGE value="add webApp domain in config (#2)" />
     <MESSAGE value="rework calendar (now switch more than one month) (#1)" />
-    <option name="LAST_COMMIT_MESSAGE" value="rework calendar (now switch more than one month) (#1)" />
+    <MESSAGE value="add change url function for telegram platform" />
+    <option name="LAST_COMMIT_MESSAGE" value="add change url function for telegram platform" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
